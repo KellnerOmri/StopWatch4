@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/zinukNameTextView"
+        android:layout_width="220dp"
+        android:layout_height="19dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#0E0E0E"
+        android:textSize="18dp"
+        android:textStyle="italic"
+        android:layout_centerHorizontal="true"
+       />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/zinukNameTextView"
+        >
+
+    <ImageButton
+        android:id="@+id/imBtnSharetxt"
+        android:layout_width="39dp"
+        android:layout_height="38dp"
+        android:background="#FBFBFB"
+        android:tint="@android:color/black"
+        app:srcCompat="@android:drawable/ic_menu_share"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/imBtnSharetxt"
+        android:layout_toLeftOf="@+id/txtNumZinuk"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerVertical="true"
+        >
+    <TextView
+        android:id="@+id/stoperTextView"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#2196F3"
+        android:gravity="center"
+        android:text="00:00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        />
+
+    <TextView
+        android:id="@+id/startTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:background="#2196F3"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        android:layout_below="@+id/stoperTextView"
+        android:layout_marginTop="8dp"
+        />
+    </RelativeLayout>
+
+        <TextView
+            android:textSize="18dp"
+            android:id="@+id/txtNumZinuk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="3"
+            android:layout_toLeftOf="@+id/btnStat"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            />
+
+    <Button
+        android:id="@+id/btnStat"
+        android:layout_width="75dp"
+        android:layout_height="42dp"
+        android:background="#00FF37"
+        android:text="Button"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        android:textStyle="bold|italic"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        />
+
+    </RelativeLayout>
+</RelativeLayout>

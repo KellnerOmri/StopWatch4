@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/zinukpage_customer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnImportRace"
+        android:layout_width="363dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="24dp"
+
+        android:background="@drawable/uttoncornner"
+        android:text="Import Race"
+        android:textColor="#FBFAFA"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/btnLoadRace"
+        app:layout_constraintStart_toStartOf="@+id/btnLoadRace"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoadRace" />
+
+    <Button
+        android:id="@+id/btnStartRace"
+        android:layout_width="363dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="24dp"
+
+        android:background="@drawable/newstart"
+        android:text="Start New Race"
+        android:textColor="#FBFAFA"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoadRace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.476" />
+
+    <Button
+        android:id="@+id/btnLoadRace"
+        android:layout_width="363dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+
+        android:background="@drawable/uttoncornner"
+        android:text="Load Last Race"
+        android:textColor="#FBFAFA"
+        android:textSize="24dp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/btnStartRace"
+        app:layout_constraintStart_toStartOf="@+id/btnStartRace"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="253dp"
+        android:layout_height="174dp"
+        android:background="@drawable/startrace_customer"
+        android:src="@mipmap/stopwatchimage"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartRace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4017857" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="68dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        android:drawableTint="#FFFFFF"
+        android:text="Version 4.3"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnImportRace" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

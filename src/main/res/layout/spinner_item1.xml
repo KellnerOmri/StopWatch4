@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:background="@drawable/drawble_start_race"
+    android:drawableTint="#FFFFFF"
+    android:ellipsize="marquee"
+    android:gravity="center"
+
+    android:paddingTop="7.595dp"
+    android:singleLine="true"
+    android:textAlignment="inherit"
+    android:textColor="#ffffff"
+    android:textColorHighlight="#2196F3"
+    android:textColorHint="#FFFFFF"
+    android:textColorLink="#2196F3"
+    android:textSize="14dp"
+    android:textStyle="bold|italic" />

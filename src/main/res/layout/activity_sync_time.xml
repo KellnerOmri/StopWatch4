@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/zinukpage_customer"
+    tools:context=".SyncTimeActivity">
+
+
+    <Button
+        android:id="@+id/btnSetTime"
+        android:layout_width="127dp"
+        android:layout_height="53dp"
+        android:background="@drawable/drawble_start_race"
+        android:text="Set Time"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        app:layout_constraintVertical_bias="0.642" />
+
+
+    <NumberPicker
+        android:id="@+id/secPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:background="#FFFFFF"
+        android:solidColor="#2196F3"
+        android:soundEffectsEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnSetTime"
+        app:layout_constraintEnd_toEndOf="@+id/txtSec"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/txtSec"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <NumberPicker
+        android:id="@+id/minPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:solidColor="#2196F3"
+        android:soundEffectsEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnSetTime"
+        app:layout_constraintEnd_toEndOf="@+id/txtMin"
+        app:layout_constraintStart_toStartOf="@+id/txtMin"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <NumberPicker
+        android:id="@+id/hourPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:solidColor="#2196F3"
+        android:soundEffectsEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnSetTime"
+        app:layout_constraintEnd_toEndOf="@+id/txtHour"
+        app:layout_constraintStart_toStartOf="@+id/txtHour"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        app:layout_constraintVertical_bias="0.385" />
+
+    <TextView
+        android:id="@+id/txtHour"
+        android:layout_width="57dp"
+        android:layout_height="34dp"
+
+        android:background="@drawable/uttoncornner"
+        android:gravity="center"
+        android:text="Hour"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMin"
+        app:layout_constraintEnd_toStartOf="@+id/txtMin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtMin" />
+
+    <TextView
+        android:id="@+id/txtSec"
+        android:layout_width="57dp"
+        android:layout_height="34dp"
+        android:background="@drawable/uttoncornner"
+        android:gravity="center"
+        android:text="Sec"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/txtMin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMin"
+        app:layout_constraintTop_toTopOf="@+id/txtMin" />
+
+    <TextView
+        android:id="@+id/txtMin"
+        android:layout_width="57dp"
+        android:layout_height="34dp"
+        android:background="@drawable/uttoncornner"
+        android:gravity="center"
+        android:text="Min"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <TextView
+        android:id="@+id/textViewCancle"
+        android:layout_width="88dp"
+        android:layout_height="37dp"
+        android:text="Cancle"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetTime"
+        app:layout_constraintVertical_bias="0.786"
+        tools:text="Cancle" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="292dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="62dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="131dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="142dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

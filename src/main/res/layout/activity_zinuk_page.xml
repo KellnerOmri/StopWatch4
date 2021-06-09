@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/zinukpage_customer"
+    tools:context=".ZinukPageActivity">
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="71dp"
+        android:layout_height="44dp"
+        android:background="@drawable/uttoncornner"
+        android:text="Edit Time"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/TxtTimeSyned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/TxtTimeSyned"
+        app:layout_constraintTop_toTopOf="@+id/TxtTimeSyned" />
+
+    <Button
+        android:id="@+id/btnZinukName"
+        android:layout_width="79dp"
+        android:layout_height="50dp"
+        android:background="@drawable/uttoncornner"
+        android:text="Edit Names"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/TxtTimeSyned"
+        app:layout_constraintEnd_toStartOf="@+id/TxtTimeSyned"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/TxtTimeSyned" />
+
+    <Button
+        android:id="@+id/btnPlus"
+        android:layout_width="51dp"
+        android:layout_height="49dp"
+        android:background="@drawable/blue_sircle_customer"
+        android:scaleType="fitCenter"
+        android:text="+"
+        android:textSize="36dp"
+        android:textStyle="bold"
+        android:tint="#2196F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+
+    <ImageButton
+        android:id="@+id/lockbtn"
+        android:layout_width="73dp"
+        android:layout_height="60dp"
+        android:background="#FFFDFD"
+        android:scaleType="fitCenter"
+        android:tint="#2196F3"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:srcCompat="@android:drawable/ic_lock_lock"
+        tools:visibility="visible" />
+
+
+    <ImageView
+        android:id="@+id/unlockImageView"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/lockbtn"
+        app:layout_constraintEnd_toEndOf="@+id/lockbtn"
+        app:layout_constraintStart_toStartOf="@+id/lockbtn"
+        app:layout_constraintTop_toTopOf="@+id/lockbtn"
+        app:srcCompat="@android:drawable/ic_partial_secure"
+        tools:visibility="invisible" />
+
+
+    <TextView
+        android:id="@+id/TxtTimeSyned"
+        android:layout_width="153dp"
+        android:layout_height="36dp"
+        android:autoLink="phone"
+        android:autoText="true"
+        android:background="@drawable/uttoncornner"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="00:00:00.00"
+        android:inputType="time"
+        android:textColor="#FAFAFA"
+        android:textColorHint="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <TextView
+        android:id="@+id/textRaceView"
+        android:layout_width="357dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/uttoncornner"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#FEFEFF"
+        android:textSize="17dp"
+        android:textStyle="bold|italic"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.615" />
+
+    <TextView
+        android:id="@+id/LockModeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTint="#000000"
+        android:text="Lock Mode"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnPlus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="59dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="70dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.18978103" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="73dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="287dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="182dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="152dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="134dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="346dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:layoutDirection="rtl"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
+        app:layout_constraintVertical_bias="0.486" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

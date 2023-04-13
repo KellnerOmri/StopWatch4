@@ -1,0 +1,7 @@
+:root {
+  --icon-color: black; // TODO:  change to different color
+}
+
+.icon {
+  fill: var(--icon-color);
+}

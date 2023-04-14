@@ -3,7 +3,7 @@ import {Menu} from "./menu/Menu";
 import {StartNewRace} from "./startNewRace/StartNewRace";
 import {Provider} from "react-redux";
 import React from "react";
-import { StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {PagesNameEnum} from "../models";
 import {setSelectedPage} from "../store/global.slice";
@@ -58,6 +58,8 @@ export default function AppPageController() {
 }
 const styles = StyleSheet.create({
     container: {
+        paddingTop:Platform.OS === 'android'?0:30,
+        // backgroundColor:"red"
         // paddingBottom: 30
     },
 });

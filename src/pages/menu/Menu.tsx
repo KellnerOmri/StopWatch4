@@ -14,7 +14,7 @@ export const Menu = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            height: "100%",
+            height: "98%",
             width: "100%",
             alignItems: "center"
         },
@@ -69,8 +69,8 @@ const setSelectedPageFunction=(pageName:PagesNameEnum)=>{
 
 
     }
-
-
+    const packageJson = require('../../../package.json');
+    const version = packageJson.version;
     return <View style={styles.container}>
         <View style={styles.wrapper}>
             <Header/>
@@ -81,7 +81,6 @@ const setSelectedPageFunction=(pageName:PagesNameEnum)=>{
             </View>
         </View>
         <View><Image source={require("../../../assets/stopwatchimage.png")}/></View>
-        <Text>Version 1.1.2</Text>
-
+        <Text>Version {version}</Text>
     </View>
 }

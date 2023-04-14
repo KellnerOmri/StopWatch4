@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "StopWatch4",
+    "description": "Multi Timers with get start-times",
     "slug": "StopWatch4",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,10 +22,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatch4.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.omrikellner.StopWatch4"
     },
     "web": {
       "favicon": "./assets/stopwatch4.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "662634cc-6859-4494-9636-5fc68b63d536"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/662634cc-6859-4494-9636-5fc68b63d536"
     }
   }
 }

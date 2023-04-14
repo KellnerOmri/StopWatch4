@@ -37,7 +37,7 @@ export const RaceDetails = () => {
             fontSize: 35, color: colors.white, fontWeight: "bold"
         }, bottomViewStyle: {
             width: "100%",
-            position: "absolute",
+            position: "relative",
             bottom: 0,
             backgroundColor: colors.lightGrey,
             display: "flex",

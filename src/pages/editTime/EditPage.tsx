@@ -3,14 +3,13 @@ import {colors} from "../../utils/color";
 import {text} from "../../utils/dictionary-management";
 import { setSelectedPage} from "../../store/global.slice";
 import {PagesNameEnum} from "../../models";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {useAppDispatch} from "../../app/hooks";
 import React, {useState} from "react";
 import {EditSyncTime} from "./components/EditSyncTime";
 import {EditHeatNames} from "./components/EditHeatNames";
 
 export const EditPage = () => {
     const dispatch = useAppDispatch()
-    const {myRace} = useAppSelector(state => state.global);
 
     const styles = StyleSheet.create({
         container: {
@@ -52,7 +51,7 @@ export const EditPage = () => {
             color:colors.dark
         },
     });
-const [isSyncSelected,setIsSyncSelected]=useState(true)
+const [isSyncSelected,setIsSyncSelected]=useState(false)
     return <View style={styles.container}>
             <Pressable onPress={() => dispatch(setSelectedPage(PagesNameEnum.raceDetails))}>
                 <Text style={styles.backStyle}>{text.back}</Text>

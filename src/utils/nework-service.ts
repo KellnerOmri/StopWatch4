@@ -2,7 +2,7 @@ import {setClientId, setRacesList} from "../store/global.slice";
 import {store} from "../app/store";
 import {getClientIdFromLocalStorage, setClientIdIntoLocalStorage} from "./db-service";
 import axios from "axios";
-import {RaceModel} from "../models";
+import {HeatModel, RaceModel} from "../models";
 const dispatch = store.dispatch
 export const getRacesForStartRace = async (setLoading:any) => {
     try {
@@ -20,17 +20,26 @@ export const getRacesForStartRace = async (setLoading:any) => {
         setLoading(false);
     }
 };
-// export const getRacesForStartRace = async (setLoading:any) => {
-//     try {
-//         const response = await fetch('https://www.4sport-live.com/stopwatch4/get4sportComps/');
-//         const json = await response.json();
-//         dispatch(setRacesList(json));
-//     } catch (error) {
-//         console.error(error);
-//     } finally {
-//         setLoading(false);
-//     }
-// };
+export const getHeatsForStartRace = async (compId:string|number,raceId:number) => {
+    try {
+        const response = await fetch(`https://www.4sport-live.com/stopwatch4/get4sportRolls/?comp=${compId}`);
+        const json = await response.json();
+        const heatsList:HeatModel[]=[]
+        await json.forEach((heat:any,index:number)=>{
+            heatsList.push({
+                raceId,
+                heatId:index+1,
+                startTime:"00:00:00.00",
+                name:heat.description,
+                heatStateNum:0,
+                creationTime:(new Date()).getTime()
+                })
+        })
+        return heatsList;
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 export const getRacesForImportRace = async (setLoading:any,setRaceListForImport:any) => {
     axios.get('https://www.4sport-live.com/stopwatch4/getRaces/')
@@ -42,60 +51,6 @@ export const getRacesForImportRace = async (setLoading:any,setRaceListForImport:
             console.error(error);
         });
 };
-// export const getRacesForImportRace = async (setLoading:any,setRaceListForImport:any) => {
-//     try {
-//         const response = await fetch('https://www.4sport-live.com/stopwatch4/getRaces/');
-//         const json:RaceModel[] = await response.json();
-//         console.log(json,"json")
-//         setRaceListForImport(json)
-//     } catch (error) {
-//         console.error(error);
-//     } finally {
-//         setLoading(false);
-//     }
-// };
-
-
-
-// export const getClientId = async () => {
-//     console.log("im here")
-//     const sqliteClientId = await getClientIdFromLocalStorage();
-//     if(sqliteClientId!==null){
-//         // dispatch(setClientId(sqliteClientId));
-//         axios.get('https://www.4sport-live.com/stopwatch4/getClientID/')
-//             .then(response => {
-//                 console.log(response.data,"testclient")
-//                 setClientIdIntoLocalStorage( response.data["clientId"])
-//                 console.log("sucsess")
-//                 // return response.data
-//             })
-//             .catch(error => {
-//                 console.error(error);
-//             });
-//
-//
-//
-//
-//     }
-//     else {
-//         // try {
-//             // const response = await fetch('https://www.4sport-live.com/stopwatch4/getClientID/');
-//
-//               axios.get('https://www.4sport-live.com/stopwatch4/getClientID/')
-//                   .then(response => {
-//                       console.log(response.data,"testclient")
-//                       // return response.data
-//                   })
-//                   .catch(error => {
-//                       console.error(error);
-//                   });
-//             // console.log(clientId,"clientId")
-//             // await setClientIdIntoLocalStorage( clientId["clientId"])
-//         // } catch (error) {
-//         //     console.error(error);
-//         // } finally {}
-//     }
-// };
 
 export const getClientId = async () => {
     const sqliteClientId = await getClientIdFromLocalStorage();
@@ -124,6 +79,7 @@ const headers = {
     'Content-Type' : 'multipart/form-data',
 };
 export const uploadRaceToNetworkDb =(race:RaceModel)=>{
+    console.log(race,"racerace")
     const formData = new FormData();
     formData.append("data",JSON.stringify(race))
     axios.post(

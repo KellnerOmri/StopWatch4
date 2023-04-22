@@ -12,7 +12,6 @@ export const EditHeatNames = () => {
     const styles = StyleSheet.create({
         container: {
             paddingTop: 25,
-            // height: "100%"
         }, heatRowStyle: {
             display: "flex",
             width: "100%",

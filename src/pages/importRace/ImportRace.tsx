@@ -82,7 +82,6 @@ export const ImportRace = () => {
 
         </View>
         <View>
-
             {isLoading ? <ActivityIndicator style={{marginTop: "50%"}}/> :
                 <ScrollView style={styles.scrollViewStyle} horizontal={false} showsVerticalScrollIndicator={false}>
                     {raceListForImport.map((race, index) => (<TouchableOpacity

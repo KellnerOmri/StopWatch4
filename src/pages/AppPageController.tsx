@@ -58,8 +58,8 @@ export default function AppPageController() {
 }
 const styles = StyleSheet.create({
     container: {
-        paddingTop:Platform.OS === 'android'?0:30,
-        // backgroundColor:"red"
-        // paddingBottom: 30
+        paddingTop:Platform.OS === 'android'?"5%":"10%",
+        direction:"ltr",
+        textAlign:"left",
     },
 });

@@ -3,7 +3,7 @@ import {
     Image,
     Linking,
     Platform,
-    Pressable,
+    Pressable, SafeAreaView,
     StyleSheet,
     Text,
     ToastAndroid,
@@ -99,15 +99,6 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
             return HeatStateEnum.running
         }
     }
-    const showToast = (message: string) => {
-        if (Platform.OS === 'android') {
-            ToastAndroid.show(message, ToastAndroid.SHORT);
-        } else {
-            // Toast.show("hi");
-        }
-    };
-
-
 
     const getStartTime=():string=>{
         const dateNow = new Date();
@@ -168,11 +159,6 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
     };
 
     const heatSelectedForRemove=()=>{
-
-        // if (isSelectedMode){
-        // setHeatSelected(!heatSelected)
-        // }
-            console.log("check")
         if (isSelectedMode){
             let newSelectedHeats:number[]=[...selectedHeats]
             if (isHeatSelected){
@@ -185,8 +171,6 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
                 newSelectedHeats.push(heat.heatId)
             }
         dispatch(setSelectedHeats(newSelectedHeats))
-        }else{
-            // dispatch(setSelectedHeats([]))
         }
     }
 
@@ -198,11 +182,10 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
             dispatch(setSelectedMode(true))
             dispatch(setSelectedHeats([heat.heatId]))
         }
-        console.log(isSelectedMode,"selectedHeats")
     }
 
     return <Pressable onLongPress={onLongPress} delayLongPress={500} style={styles.container} onPress={heatSelectedForRemove}>
-        <View style={styles.rowContainer}>
+        <SafeAreaView style={styles.rowContainer}>
             <TouchableOpacity  onPress={shareText} >
                 <Image source={require("../../../assets/icons/shareImage.png")} style={{width:25,height:25}}/>
             </TouchableOpacity>
@@ -214,7 +197,7 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
             <Text style={styles.heatNumber}>{index}</Text>
             <TouchableOpacity onPress={() => onActionPressed()}
                               style={styles.actionContainer}><Text>{getActionName()}</Text></TouchableOpacity>
-        </View>
+        </SafeAreaView>
     </Pressable>
 
 }

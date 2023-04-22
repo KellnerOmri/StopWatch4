@@ -65,7 +65,7 @@ export const RaceDetails = () => {
         }, lockIcon: {
             display:"flex",
             justifyContent:"center",
-            position: "relative", // bottom: 12, left: 20
+            position: "relative",
         }
 
 

@@ -31,7 +31,7 @@ export const getHeatsForStartRace = async (compId:string|number,raceId:number) =
                 heatId:index+1,
                 startTime:"00:00:00.00",
                 name:heat.description,
-                heatStateNum:0,
+                heatStateNum:1,
                 creationTime:(new Date()).getTime()
                 })
         })

@@ -3,7 +3,7 @@ import {Menu} from "./menu/Menu";
 import {StartNewRace} from "./startNewRace/StartNewRace";
 import {Provider} from "react-redux";
 import React from "react";
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {I18nManager, Platform, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {PagesNameEnum} from "../models";
 import {setSelectedPage} from "../store/global.slice";
@@ -15,6 +15,8 @@ import {ImportRace} from "./importRace/ImportRace";
 export default function AppPageController() {
     const dispatch = useAppDispatch();
 
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
 
     const {selectedPage} = useAppSelector(state => state.global);
     const backToMenuFunction=()=>{

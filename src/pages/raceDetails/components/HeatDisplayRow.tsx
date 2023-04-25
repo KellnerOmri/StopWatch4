@@ -88,6 +88,12 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
         }
         return moment.utc((dateNow.getTime()+myRace.gapMills)-heatCreationTime).format("HH:mm:ss")
     }
+    const getStartTimeText = (): string => {
+        if (heat.heatStateNum === HeatStateEnum.ready || heat.heatStateNum === HeatStateEnum.stop) {
+            return "00:00:00.00"
+        }
+        return heat.startTime
+    }
     const getActionName = (): string => {
         return heat.heatStateNum === HeatStateEnum.running ? "Reset" : "Start"
     }
@@ -192,7 +198,7 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
             <View style={styles.timesWrapper}>
                 <Text style={styles.headerStyle}>{heat.name!=="heat"?heat.name:""}</Text>
                 <View style={styles.timeWrapper}><Text style={styles.timeText}>{getTimer()}</Text></View>
-                <View style={styles.timeWrapper}><Text style={styles.timeText}>{heat.startTime}</Text></View>
+                <View style={styles.timeWrapper}><Text style={styles.timeText}>{getStartTimeText()}</Text></View>
             </View>
             <Text style={styles.heatNumber}>{index}</Text>
             <TouchableOpacity onPress={() => onActionPressed()}

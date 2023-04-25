@@ -3,6 +3,8 @@ import {store} from "../app/store";
 import {getClientIdFromLocalStorage, setClientIdIntoLocalStorage} from "./db-service";
 import axios from "axios";
 import {HeatModel, RaceModel} from "../models";
+import {HeatStateEnum} from "../models/heatState.enum";
+
 const dispatch = store.dispatch
 export const getRacesForStartRace = async (setLoading:any) => {
     try {
@@ -31,7 +33,7 @@ export const getHeatsForStartRace = async (compId:string|number,raceId:number) =
                 heatId:index+1,
                 startTime:"00:00:00.00",
                 name:heat.description,
-                heatStateNum:1,
+                heatStateNum:HeatStateEnum.ready,
                 creationTime:(new Date()).getTime()
                 })
         })

@@ -1,5 +1,5 @@
 export enum HeatStateEnum {
-    running = 0,
-    ready = 1,
+    running = 1,
+    ready = 0,
     stop = 2,
 }

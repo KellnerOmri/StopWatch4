@@ -41,6 +41,7 @@ export const ImportRace = () => {
     });
 
     const importRace = async (race: RaceModel) => {
+        console.log(race,"race");
         await dropSqliteTables()
         await createSqliteTables()
         const newSqliteRaceModel: SqliteRaceModel = {

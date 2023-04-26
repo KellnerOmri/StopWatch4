@@ -1,14 +1,15 @@
 import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+// import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {colors} from "../../../utils/color";
-import {useCallback, useState} from "react";
-import {setMyRace} from "../../../store/global.slice";
-import {debounce} from "lodash";
+import React from "react";
+// import {setMyRace} from "../../../store/global.slice";
+// import {debounce} from "lodash";
 import {updateHeatNameIntoSqlite} from "../../../utils/db-service";
-import {uploadRaceToNetworkDb} from "../../../utils/nework-service";
-export const EditHeatNames = () => {
-    const dispatch = useAppDispatch()
-    const {myRace} = useAppSelector(state => state.global);
+// import {uploadRaceToNetworkDb} from "../../../utils/nework-service";
+import {HeatModel} from "../../../models";
+export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> = ({localHeats, setLocalHeats}) => {
+    // const dispatch = useAppDispatch()
+    // const {myRace} = useAppSelector(state => state.global);
     const styles = StyleSheet.create({
         container: {
             paddingTop: 25,
@@ -38,36 +39,27 @@ export const EditHeatNames = () => {
             width:"10%"
         }
     });
-    const debounceOnChangeText = useCallback(
-        debounce((text:string,heatId:number,index:number) => {
-            let newValues = [...myRace.heats];
-            newValues[index].name = text;
-            dispatch(setMyRace({...myRace, heats: newValues}))
-            updateHeatNameIntoSqlite(text,heatId)
-            uploadRaceToNetworkDb(myRace)
-        }, 600),
-        []
-    );
+
     return <View style={styles.container}>
         <ScrollView
             horizontal={false} showsVerticalScrollIndicator={false}>
             <View style={{height:"100%",display:"flex",flexDirection:"column",gap:10}}>
-            {myRace.heats.map((heat, index) => {
-                const [inputText,setInputText] = useState(heat.name)
+            {localHeats.map((heat, index) => {
                 return <View style={styles.heatRowStyle} key={index}>
                     <Text style={styles.heatIndex}>{index}</Text>
                     <TextInput
                         onChangeText={(text) => {
-                            setInputText(text)
-                            debounceOnChangeText(text,heat.heatId,index);
+                            let newLocalHeats = [...localHeats];
+                            newLocalHeats[index].name = text;
+                            updateHeatNameIntoSqlite(text,heat.heatId)
+                            setLocalHeats(newLocalHeats)
                         }}
                         style={styles.input}
-                        value={inputText}
+                        value={localHeats[index].name}
                     />
                 </View>
             })}
             </View>
-
         </ScrollView>
     </View>
 }

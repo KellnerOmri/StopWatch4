@@ -70,9 +70,6 @@ export const RaceDetails = () => {
         }, heatsWrapper: {
             display: "flex", flexDirection: "column", gap: 10
         }, raceNameStyle: {
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-            overflow: "hidden",
             width:"60%",
             alignItems:'center',
             display:"flex",

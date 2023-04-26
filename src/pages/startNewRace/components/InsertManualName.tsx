@@ -66,7 +66,6 @@ export const InsertManualName=()=>{
         }
         db.transaction(tx => {
             tx.executeSql(`insert into sqliteRaceTable (raceId,gapMills, name,clientId,creationTime) values (?,?, ?,?,?)`, [newSqliteRaceModel.raceId, newSqliteRaceModel.gapMills, newSqliteRaceModel.name,newSqliteRaceModel.clientId,newSqliteRaceModel.creationTime]);
-            tx.executeSql("select * from sqliteRaceTable", [], (_, {rows}) => console.log(JSON.stringify(rows),"startRace"));
         }, () => {
         },);
         const newRace: RaceModel = {

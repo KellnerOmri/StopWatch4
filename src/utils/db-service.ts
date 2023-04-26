@@ -36,20 +36,16 @@ export const createSqliteTables=()=>{
 export const getClientIdFromLocalStorage= async ()=>{
     try {
         const value = await AsyncStorage.getItem("storageClientId5" )
-        console.log(value && JSON.parse(value),"client")
-
         if (value!== null){
         }
         return value !== null ? JSON.parse(value) : null;
     } catch(e) {} 
 }
 export const setClientIdIntoLocalStorage = async ( value:number) => {
-    console.log("test user")
     try {
         await AsyncStorage.setItem("storageClientId5", JSON.stringify(value))
         dispatch(setClientId(value))
     } catch (e) {
-        // handle error
     }
 }
 
@@ -58,7 +54,6 @@ export const setClientIdIntoLocalStorage = async ( value:number) => {
 export const getRaceIdFromLocalStorage= async ()=>{
     try {
         const value = await AsyncStorage.getItem("storageRaceId" )
-        console.log(value && JSON.parse(value),"va")
         if (value!== null){
             dispatch(setStorageRaceId(JSON.parse(value)))
         }else {

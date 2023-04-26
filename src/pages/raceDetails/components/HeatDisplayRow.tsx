@@ -3,14 +3,15 @@ import {
     Image,
     Linking,
     Platform,
-    Pressable, SafeAreaView,
+    Pressable,
+    SafeAreaView,
     StyleSheet,
     Text,
     ToastAndroid,
     TouchableOpacity,
     View
 } from "react-native";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {HeatModel} from "../../../models";
 import moment from "moment/moment";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
@@ -19,10 +20,10 @@ import {setIsLocked, setMyRace, setSelectedHeats, setSelectedMode} from "../../.
 import {updateHeatStartTimeIntoSqlite} from "../../../utils/db-service";
 import {uploadRaceToNetworkDb} from "../../../utils/nework-service";
 
-import { Audio } from 'expo-av';
+import {Audio} from 'expo-av';
 
 
-export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat,index}) => {
+export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number ,ownerRace:boolean}> = ({heat,index,ownerRace}) => {
     const {myRace,isLocked,isSelectedMode,selectedHeats} = useAppSelector(state => state.global);
     const dispatch = useAppDispatch()
     const isHeatSelected = selectedHeats.includes(heat.heatId)
@@ -40,7 +41,7 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            paddingHorizontal: "5%"
+            paddingHorizontal: ownerRace ?"5%":"10%",
         }, headerStyle: {
             borderBottomWidth:0.5,
             borderColor:colors.darkGrey,
@@ -60,7 +61,7 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
         }, heatNumber: {
             width: "10%"
         }, actionContainer: {
-            backgroundColor: isLocked?colors.lightGrey:heat.heatStateNum===HeatStateEnum.running?"red":"green",
+            backgroundColor:(!ownerRace) || ( isLocked && heat.heatStateNum !== HeatStateEnum.ready)?colors.lightGrey:heat.heatStateNum===HeatStateEnum.running?"red":"green",
             alignItems: "center",
             display: "flex",
             justifyContent: "center",
@@ -111,7 +112,7 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
         return moment(myRace.gapMills + dateNow.getTime()).format("HH:mm:ss.SS")
     }
     const onActionPressed = async () => {
-        if (isLocked){
+        if ((!ownerRace) || (isLocked && heat.heatStateNum !== HeatStateEnum.ready)){
             if (Platform.OS === 'android') {
                 ToastAndroid.show("please unlock first", ToastAndroid.SHORT);
             }
@@ -201,8 +202,8 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number }> = ({heat
                 <View style={styles.timeWrapper}><Text style={styles.timeText}>{getStartTimeText()}</Text></View>
             </View>
             <Text style={styles.heatNumber}>{index}</Text>
-            <TouchableOpacity onPress={() => onActionPressed()}
-                              style={styles.actionContainer}><Text>{getActionName()}</Text></TouchableOpacity>
+            {ownerRace && <TouchableOpacity onPress={() => onActionPressed()}
+                               style={styles.actionContainer}><Text>{getActionName()}</Text></TouchableOpacity>}
         </SafeAreaView>
     </Pressable>
 

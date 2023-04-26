@@ -38,17 +38,13 @@ const setSelectedPageFunction=(pageName:PagesNameEnum)=>{
 }
 
     const LoadLastRace=()=>{
-        console.log("im heafsdc")
         db.transaction(tx => {
             tx.executeSql("select * from sqliteRaceTable", [], (_, {rows}) => {
                 // const res = JSON.stringify(rows._array[0])
                 const res = rows._array[0]
 
                 tx.executeSql("select * from sqliteHeatTable", [], (_, {rows}) => {
-                    // const res = JSON.stringify(rows._array[0])
                     const heatRes = rows._array
-                    console.log(heatRes,"heatRes")
-                    console.log(res, "LoadraceDetails")
 
                     const LastRace:RaceModel={
                         raceId:res.raceId,

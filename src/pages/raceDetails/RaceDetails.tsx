@@ -8,12 +8,14 @@ import moment from "moment";
 import {useEffect, useMemo, useState} from "react";
 import {HeatDisplayRow} from "./components/HeatDisplayRow";
 import {HeatStateEnum} from "../../models/heatState.enum";
-import {db, deleteHeatNameFromSqlite, updateHeatNameIntoSqlite} from "../../utils/db-service";
+import {db, deleteHeatNameFromSqlite} from "../../utils/db-service";
 import {uploadRaceToNetworkDb} from "../../utils/nework-service";
 
 export const RaceDetails = () => {
     const dispatch = useAppDispatch()
-    const {myRace, isLocked, clientId,selectedHeats,isSelectedMode} = useAppSelector(state => state.global);
+    const {myRace, isLocked, clientId, selectedHeats, isSelectedMode} = useAppSelector(state => state.global);
+    const ownerRace: boolean = myRace.clientId === clientId;
+
     const styles = StyleSheet.create({
         container: {
             height: "100%", width: "100%", alignItems: "center", paddingTop: 25
@@ -24,11 +26,10 @@ export const RaceDetails = () => {
             justifyContent: "space-between",
             flexDirection: "row",
             alignItems: "center"
-        },
-        timeWrapper: {
+        }, timeWrapper: {
             marginTop: 8, alignItems: "center", backgroundColor: colors.primary, width: "100%", paddingVertical: 10
         }, editButtonStyle: {
-            fontSize: 18, color: isLocked ? colors.lightGrey : colors.primary
+            fontSize: 18, color: !ownerRace ? colors.lightGrey : colors.primary
         },
 
         backStyle: {
@@ -45,11 +46,8 @@ export const RaceDetails = () => {
             justifyContent: "space-between",
             paddingHorizontal: "5%",
             paddingVertical: "2%"
-        },selectedModeStyle:{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap:20
+        }, selectedModeStyle: {
+            display: "flex", flexDirection: "row", justifyContent: "space-between", gap: 20
         },
 
 
@@ -63,9 +61,7 @@ export const RaceDetails = () => {
             alignItems: "center",
             justifyContent: "center",
         }, lockIcon: {
-            display:"flex",
-            justifyContent:"center",
-            position: "relative",
+            display: "flex", justifyContent: "center", position: "relative",
         }
 
 
@@ -73,6 +69,16 @@ export const RaceDetails = () => {
             color: colors.white, fontSize: 30
         }, heatsWrapper: {
             display: "flex", flexDirection: "column", gap: 10
+        }, raceNameStyle: {
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            width:"60%",
+            alignItems:'center',
+            display:"flex",
+            justifyContent:"center",
+            flexDirection:"row",
+            textAlign:"center"
         }
     });
 
@@ -108,7 +114,6 @@ export const RaceDetails = () => {
 
         db.transaction(tx => {
             tx.executeSql(`insert into sqliteHeatTable (heatId,raceId,startTime, name,heatStateNum,creationTime) values (?,?,?,?,?,?)`, [newHeat.heatId, newHeat.raceId, newHeat.startTime, newHeat.name, newHeat.heatStateNum, newHeat.creationTime]);
-            tx.executeSql("select * from sqliteHeatTable", [], (_, {rows}) => console.log(JSON.stringify(rows), "heats"));
         }, () => {
         },);
     }
@@ -122,20 +127,18 @@ export const RaceDetails = () => {
     }, [])
 
 
-
-    const ownerRace: boolean = myRace.clientId === clientId;
-const closeSelectedMode=()=>{
-    dispatch(setSelectedMode(false));
-    dispatch(setSelectedHeats([]))
-}
-    const deleteHeats=()=>{
-        let newHeatList:HeatModel[]=[]
-        myRace.heats.forEach((heat)=>{
-            if (!selectedHeats.includes(heat.heatId)){
+    const closeSelectedMode = () => {
+        dispatch(setSelectedMode(false));
+        dispatch(setSelectedHeats([]))
+    }
+    const deleteHeats = () => {
+        let newHeatList: HeatModel[] = []
+        myRace.heats.forEach((heat) => {
+            if (!selectedHeats.includes(heat.heatId)) {
                 newHeatList.push(heat)
             }
         })
-        dispatch(setMyRace({...myRace,heats:newHeatList}))
+        dispatch(setMyRace({...myRace, heats: newHeatList}))
         deleteHeatNameFromSqlite(selectedHeats)
         uploadRaceToNetworkDb(myRace)
     }
@@ -144,8 +147,8 @@ const closeSelectedMode=()=>{
             <Pressable onPress={() => dispatch(setSelectedPage(PagesNameEnum.menu))}>
                 <Text style={styles.backStyle}>{text.back}</Text>
             </Pressable>
-            <Text>{myRace.name}</Text>
-            <Pressable onPress={() => !isLocked && dispatch(setSelectedPage(PagesNameEnum.editTime))}>
+            <Text style={styles.raceNameStyle}>{myRace.name}</Text>
+            <Pressable onPress={() => ownerRace && dispatch(setSelectedPage(PagesNameEnum.editTime))}>
                 <Text style={styles.editButtonStyle}>{text.edit}</Text>
             </Pressable>
         </View>
@@ -154,33 +157,33 @@ const closeSelectedMode=()=>{
         </View>
         <ScrollView style={styles.heatsWrapper}>
             {myRace.heats.map((heat, index) => {
-                return <HeatDisplayRow key={index} heat={heat} index={index + 1} />
+                return <HeatDisplayRow key={index} heat={heat} index={index + 1} ownerRace={ownerRace}/>
             })}
         </ScrollView>
-        <View style={styles.bottomViewStyle}>
+        {ownerRace && <View style={styles.bottomViewStyle}>
             <TouchableOpacity style={styles.lockIcon} onPress={() => ownerRace && dispatch(setIsLocked(!isLocked))}>
                 {isLocked ?
                     <Image style={{width: 30, height: 40}} source={require("../../assets/icons/lockIcon.png")}/> :
                     <Image style={{width: 30, height: 40}} source={require("../../assets/icons/unlockIcon.png")}/>}
             </TouchableOpacity>
             {isSelectedMode && <View style={styles.selectedModeStyle}>
-            <TouchableOpacity onPress={deleteHeats} style={{display:"flex",justifyContent:"center"}}>
-               <Image style={{width: 30, height: 40}} source={require("../../assets/icons/delete-icon.png")}/>
-           </TouchableOpacity>
-            <View style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                <Text style={{color:colors.primary}} >selected {selectedHeats?.length}</Text>
-            </View>
-            <TouchableOpacity onPress={closeSelectedMode} style={{display:"flex",justifyContent:"center"}}>
-               <Image style={{width: 30, height: 30}} source={require("../../assets/icons/cancel-icon.png")}/>
-           </TouchableOpacity>
+                <TouchableOpacity onPress={deleteHeats} style={{display: "flex", justifyContent: "center"}}>
+                    <Image style={{width: 30, height: 40}} source={require("../../assets/icons/delete-icon.png")}/>
+                </TouchableOpacity>
+                <View
+                    style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                    <Text style={{color: colors.primary}}>selected {selectedHeats?.length}</Text>
+                </View>
+                <TouchableOpacity onPress={closeSelectedMode} style={{display: "flex", justifyContent: "center"}}>
+                    <Image style={{width: 30, height: 30}} source={require("../../assets/icons/cancel-icon.png")}/>
+                </TouchableOpacity>
             </View>}
-
 
 
             <TouchableOpacity style={styles.addHeatButton} onPress={addHeats}>
                 <Text style={styles.plusText}>+</Text>
             </TouchableOpacity>
-        </View>
+        </View>}
 
     </View>
 }

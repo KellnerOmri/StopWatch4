@@ -41,7 +41,6 @@ export const ImportRace = () => {
     });
 
     const importRace = async (race: RaceModel) => {
-        console.log(race,"race");
         await dropSqliteTables()
         await createSqliteTables()
         const newSqliteRaceModel: SqliteRaceModel = {
@@ -53,7 +52,6 @@ export const ImportRace = () => {
         }
         db.transaction(tx => {
             tx.executeSql(`insert into sqliteRaceTable (raceId,gapMills, name,clientId,creationTime) values (?,?, ?,?,?)`, [newSqliteRaceModel.raceId, newSqliteRaceModel.gapMills, newSqliteRaceModel.name, newSqliteRaceModel.clientId, newSqliteRaceModel.creationTime]);
-            tx.executeSql("select * from sqliteRaceTable", [], (_, {rows}) => console.log(JSON.stringify(rows), "importRace"));
         }, () => {
         },);
 
@@ -62,7 +60,6 @@ export const ImportRace = () => {
                 race.heats.forEach((heat) => {
                     tx.executeSql(`insert into sqliteHeatTable (heatId,raceId,startTime, name,heatStateNum,creationTime) values (?,?,?,?,?,?)`, [heat.heatId, heat.raceId, heat.startTime, heat.name, heat.heatStateNum, heat.creationTime]);
                 })
-                tx.executeSql("select * from sqliteHeatTable", [], (_, {rows}) => console.log(JSON.stringify(rows), "heats"));
             }, () => {
             },);
         }

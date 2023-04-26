@@ -13,23 +13,16 @@ import {ImportRace} from "./importRace/ImportRace";
 
 
 export default function AppPageController() {
-    const dispatch = useAppDispatch();
-
     I18nManager.allowRTL(false);
     I18nManager.forceRTL(false);
 
     const {selectedPage} = useAppSelector(state => state.global);
-    const backToMenuFunction=()=>{
-        dispatch(setSelectedPage(PagesNameEnum.menu))
-    }
-
-
 
     const renderPage = () => {
         switch (selectedPage) {
             case PagesNameEnum.startNewRace:
             {
-                return <StartNewRace backToMenuFunction={backToMenuFunction}/>
+                return <StartNewRace/>
             }
             case PagesNameEnum.importRace: {
                 return <ImportRace/>
@@ -44,7 +37,7 @@ export default function AppPageController() {
                 return <EditPage/>
             }
             default:{
-                return <View><Text>defualt</Text></View>
+                return <View><Text>default</Text></View>
             }
         }
     }

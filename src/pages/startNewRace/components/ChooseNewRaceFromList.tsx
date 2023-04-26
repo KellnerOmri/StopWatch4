@@ -89,7 +89,6 @@ export const ChooseNewRaceFromList = () => {
             gapMills: 0.0,
             heats: heatsByComp ? heatsByComp : []
         }
-        console.log(newRace, "newRace")
         await dispatch(setMyRace(newRace))
         uploadRaceToNetworkDb(newRace)
         dispatch(setSelectedPage(PagesNameEnum.raceDetails))

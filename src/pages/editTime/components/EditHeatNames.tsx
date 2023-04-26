@@ -1,7 +1,7 @@
 import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {colors} from "../../../utils/color";
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
 import {setMyRace} from "../../../store/global.slice";
 import {debounce} from "lodash";
 import {updateHeatNameIntoSqlite} from "../../../utils/db-service";
@@ -39,7 +39,10 @@ export const EditHeatNames = () => {
         }
     });
     const debounceOnChangeText = useCallback(
-        debounce((text:string,heatId:number) => {
+        debounce((text:string,heatId:number,index:number) => {
+            let newValues = [...myRace.heats];
+            newValues[index].name = text;
+            dispatch(setMyRace({...myRace, heats: newValues}))
             updateHeatNameIntoSqlite(text,heatId)
             uploadRaceToNetworkDb(myRace)
         }, 600),
@@ -49,19 +52,17 @@ export const EditHeatNames = () => {
         <ScrollView
             horizontal={false} showsVerticalScrollIndicator={false}>
             <View style={{height:"100%",display:"flex",flexDirection:"column",gap:10}}>
-
             {myRace.heats.map((heat, index) => {
+                const [inputText,setInputText] = useState(heat.name)
                 return <View style={styles.heatRowStyle} key={index}>
                     <Text style={styles.heatIndex}>{index}</Text>
                     <TextInput
                         onChangeText={(text) => {
-                            let newValues = [...myRace.heats];
-                            newValues[index].name = text;
-                            dispatch(setMyRace({...myRace, heats: newValues}))
-                            debounceOnChangeText(text,heat.heatId);
+                            setInputText(text)
+                            debounceOnChangeText(text,heat.heatId,index);
                         }}
                         style={styles.input}
-                        value={heat.name}
+                        value={inputText}
                     />
                 </View>
             })}

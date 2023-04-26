@@ -81,7 +81,6 @@ const headers = {
     'Content-Type' : 'multipart/form-data',
 };
 export const uploadRaceToNetworkDb =(race:RaceModel)=>{
-    console.log(race,"racerace")
     const formData = new FormData();
     formData.append("data",JSON.stringify(race))
     axios.post(
@@ -92,7 +91,6 @@ export const uploadRaceToNetworkDb =(race:RaceModel)=>{
         }
     )
         .then((res) => {
-            console.log(res, "res");
         })
         .catch((e) => {
             console.log(e, "e");

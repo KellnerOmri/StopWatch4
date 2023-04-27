@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {colors} from "../../../utils/color";
 import React, {useCallback} from "react";
 import {debounce} from "lodash";
@@ -43,10 +43,11 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
 
     return <View style={styles.container}>
         <ScrollView
+            scrollEnabled={true}
             horizontal={false} showsVerticalScrollIndicator={false}>
             <View style={{height:"100%",display:"flex",flexDirection:"column",gap:10}}>
             {localHeats.map((heat, index) => {
-                return <View style={styles.heatRowStyle} key={index}>
+                return <SafeAreaView style={styles.heatRowStyle} key={index}>
                     <Text style={styles.heatIndex}>{index}</Text>
                     <TextInput
                         onChangeText={(text) => {
@@ -58,7 +59,7 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
                         style={styles.input}
                         value={localHeats[index].name}
                     />
-                </View>
+                </SafeAreaView>
             })}
             </View>
         </ScrollView>

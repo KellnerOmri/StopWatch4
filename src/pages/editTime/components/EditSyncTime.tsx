@@ -16,56 +16,41 @@ export const EditSyncTime = () => {
     const {myRace} = useAppSelector(state => state.global);
 
     const styles = StyleSheet.create({
-        container:{
+        container: {
             height: "100%",
             width: "100%",
             paddingTop: 25,
             paddingHorizontal: 20,
-            display:"flex",
-            flexDirection:"column",
-            justifyContent:"space-between"
-        },
-        bodyWrapper: {
-            height:"91%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
-        },
-        timePickerWrapper: {
-            height: "70%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent:"space-between",
-        },
-        timeTextWrapper: {
-            width: "100%",
-            alignItems: "center",
-        },
-        timeTextStyle: {
+            justifyContent: "space-between"
+        }, bodyWrapper: {
+            height: "91%", display: "flex", flexDirection: "column", justifyContent: "space-between",
+        }, timePickerWrapper: {
+            height: "70%", display: "flex", flexDirection: "row", justifyContent: "space-between",
+        }, timeTextWrapper: {
+            width: "100%", alignItems: "center",
+        }, timeTextStyle: {
             fontSize: 35,
-        },
-        setTimeButton: {
+        }, setTimeButton: {
             backgroundColor: colors.primary,
             width: "100%",
             alignItems: "center",
-            borderTopRightRadius:35,
-            borderTopLeftRadius:35,
-        },
-        buttonTextStyle:{
-            color:colors.white,
-            fontSize: 35,
+            borderTopRightRadius: 35,
+            borderTopLeftRadius: 35,
+        }, buttonTextStyle: {
+            color: colors.white, fontSize: 35,
         }
     });
 
     const now = moment();
     const time = now.format('HH:mm:ss');
 
-    const [hourNow,mimNow,secNow] = time.split(":")
+    const [hourNow, mimNow, secNow] = time.split(":")
 
     const [selectedHour, setSelectedHour] = useState(hourNow);
     const [selectedMinute, setSelectedMinute] = useState(mimNow);
     const [selectedSecond, setSelectedSecond] = useState(secNow);
-
 
 
     const syncTime = async () => {
@@ -76,9 +61,9 @@ export const EditSyncTime = () => {
         dateObj.setMinutes(Number(selectedMinute));
         dateObj.setSeconds(Number(selectedSecond));
 
-        const newGapMills = dateObj.getTime()-dateNow.getTime()
-        updateRaceGapMilsIntoSqlite(myRace.raceId,newGapMills)
-        await dispatch(setMyRace({...myRace,gapMills:newGapMills}))
+        const newGapMills = dateObj.getTime() - dateNow.getTime()
+        updateRaceGapMilsIntoSqlite(myRace.raceId, newGapMills)
+        await dispatch(setMyRace({...myRace, gapMills: newGapMills}))
         uploadRaceToNetworkDb(myRace)
         dispatch(setSelectedPage(PagesNameEnum.raceDetails))
     }
@@ -101,11 +86,9 @@ export const EditSyncTime = () => {
             <View style={styles.timeTextWrapper}>
                 <Text style={styles.timeTextStyle}>{selectedHour}:{selectedMinute}:{selectedSecond}</Text>
             </View>
-            <View style={styles.setTimeButton}>
-                <Pressable onPress={()=>syncTime()}>
-                    <Text style={styles.buttonTextStyle}>{text.setTime}</Text>
-                </Pressable>
-            </View>
+            <Pressable style={styles.setTimeButton} onPress={() => syncTime()}>
+                <Text style={styles.buttonTextStyle}>{text.setTime}</Text>
+            </Pressable>
         </View>
 
     </View>

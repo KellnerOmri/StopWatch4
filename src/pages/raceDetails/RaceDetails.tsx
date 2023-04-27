@@ -78,7 +78,6 @@ export const RaceDetails = () => {
             textAlign:"center"
         }
     });
-
     const [nowTime, setNowTime] = useState(new Date().getTime());
 
     useEffect(() => {
@@ -138,6 +137,7 @@ export const RaceDetails = () => {
         dispatch(setMyRace({...myRace, heats: newHeatList}))
         deleteHeatNameFromSqlite(selectedHeats)
         uploadRaceToNetworkDb(myRace)
+        dispatch(setSelectedMode(false));
     }
     return <View style={styles.container}>
         <View style={styles.headerWrapper}>
@@ -175,8 +175,6 @@ export const RaceDetails = () => {
                     <Image style={{width: 30, height: 30}} source={require("../../assets/icons/cancel-icon.png")}/>
                 </TouchableOpacity>
             </View>}
-
-
             <TouchableOpacity style={styles.addHeatButton} onPress={addHeats}>
                 <Text style={styles.plusText}>+</Text>
             </TouchableOpacity>

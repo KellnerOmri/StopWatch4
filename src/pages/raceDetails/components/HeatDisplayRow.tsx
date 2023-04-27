@@ -65,9 +65,9 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number ,ownerRace:
             alignItems: "center",
             display: "flex",
             justifyContent: "center",
-            width: "15%",
+            width: "25%",
             paddingVertical:20,
-            borderRadius: 50
+            borderRadius: 4
         }
     });
     const calculateHeatCreationTime = (startTime: string) => {
@@ -136,9 +136,9 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel,index:number ,ownerRace:
                 newHeatsList.push(h);
             }
         })
-
-        await dispatch(setMyRace({...myRace,heats:newHeatsList}))
-        uploadRaceToNetworkDb(myRace)
+        const newRace = {...myRace,heats:newHeatsList}
+        await dispatch(setMyRace(newRace))
+        uploadRaceToNetworkDb(newRace)
         if (heat.heatStateNum!==HeatStateEnum.running){
             dispatch(setIsLocked(true))
             playSound().then()

@@ -1,15 +1,10 @@
 import {ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
-// import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {colors} from "../../../utils/color";
-import React from "react";
-// import {setMyRace} from "../../../store/global.slice";
-// import {debounce} from "lodash";
+import React, {useCallback} from "react";
+import {debounce} from "lodash";
 import {updateHeatNameIntoSqlite} from "../../../utils/db-service";
-// import {uploadRaceToNetworkDb} from "../../../utils/nework-service";
 import {HeatModel} from "../../../models";
 export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> = ({localHeats, setLocalHeats}) => {
-    // const dispatch = useAppDispatch()
-    // const {myRace} = useAppSelector(state => state.global);
     const styles = StyleSheet.create({
         container: {
             paddingTop: 25,
@@ -39,6 +34,12 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
             width:"10%"
         }
     });
+    const debounceOnChangeText = useCallback(
+        debounce((text:string,heatId:number) => {
+            updateHeatNameIntoSqlite(text,heatId)
+        }, 600),
+        []
+    );
 
     return <View style={styles.container}>
         <ScrollView
@@ -51,8 +52,8 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
                         onChangeText={(text) => {
                             let newLocalHeats = [...localHeats];
                             newLocalHeats[index].name = text;
-                            updateHeatNameIntoSqlite(text,heat.heatId)
                             setLocalHeats(newLocalHeats)
+                            debounceOnChangeText(text,heat.heatId);
                         }}
                         style={styles.input}
                         value={localHeats[index].name}

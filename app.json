@@ -3,7 +3,7 @@
     "name": "StopWatch4",
     "description": "Multi Timers with get start-times",
     "slug": "StopWatch4",
-    "version": "1.0.3",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/stopwatch4icon.png",
     "userInterfaceStyle": "light",

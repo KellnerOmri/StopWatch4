@@ -15,7 +15,8 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
             justifyContent: "space-between",
             alignItems:"center",
             height:40,
-            gap:10
+            gap:10,
+            marginBottom:20
         }, input: {
             borderColor: colors.primary,
             borderRadius: 4,
@@ -44,8 +45,8 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
     return <View style={styles.container}>
         <ScrollView
             scrollEnabled={true}
-            horizontal={false} showsVerticalScrollIndicator={false}>
-            <View style={{height:"100%",display:"flex",flexDirection:"column",gap:10}}>
+            horizontal={false} showsVerticalScrollIndicator={false}
+        >
             {localHeats.map((heat, index) => {
                 return <SafeAreaView style={styles.heatRowStyle} key={index}>
                     <Text style={styles.heatIndex}>{index}</Text>
@@ -61,7 +62,6 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
                     />
                 </SafeAreaView>
             })}
-            </View>
         </ScrollView>
     </View>
 }

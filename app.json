@@ -3,9 +3,9 @@
     "name": "StopWatch4",
     "description": "Multi Timers with get start-times",
     "slug": "StopWatch4",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/stopwatch4logo.png",
+    "icon": "./assets/stopwatch4icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/stopwatchimage.png",
@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 10,
+      "versionCode": 11,
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatch4logo.png",
         "backgroundColor": "#ffffff"

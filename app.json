@@ -5,7 +5,7 @@
     "slug": "StopWatch4",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/stopwatch4icon.png",
+    "icon": "./assets/stopwatchimage.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/stopwatchimage.png",
@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 12,
+      "versionCode": 13,
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatch4logo.png",
         "backgroundColor": "#ffffff"
@@ -27,7 +27,7 @@
       "package": "com.omrikellner.StopWatch4"
     },
     "web": {
-      "favicon": "./assets/stopwatch4.png"
+      "favicon": "./assets/stopwatchimage.png"
     },
     "extra": {
       "eas": {

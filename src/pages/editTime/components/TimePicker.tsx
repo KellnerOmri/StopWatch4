@@ -1,4 +1,4 @@
-import {Animated, FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Animated, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useRef} from "react";
 import ScrollView = Animated.ScrollView;
 import {colors} from "../../../utils/color";
@@ -49,7 +49,6 @@ export const TimePicker:React.FC<{header:string,numberArray:string[],selectedNum
         >
             {getInfiniteData().map((number,index) => (
                 <TouchableOpacity
-                    // ref={defaultItemRef}
                     key={index}
                     onPress={() => setSelectedNumber(number)}
                     style={{

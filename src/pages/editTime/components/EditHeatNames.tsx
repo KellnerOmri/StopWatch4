@@ -1,10 +1,16 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {colors} from "../../../utils/color";
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import {debounce} from "lodash";
 import {updateHeatNameIntoSqlite} from "../../../utils/db-service";
 import {HeatModel} from "../../../models";
-export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> = ({localHeats, setLocalHeats}) => {
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import {setMyRace} from "../../../store/global.slice";
+export const EditHeatNames = () => {
+    const dispatch = useAppDispatch()
+    const {myRace} = useAppSelector(state => state.global);
+    const localHeats:HeatModel[] = [...myRace.heats]
+
     const styles = StyleSheet.create({
         container: {
             paddingTop: 25,
@@ -16,7 +22,7 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
             alignItems:"center",
             height:40,
             gap:10,
-            marginBottom:20
+            marginBottom:30
         }, input: {
             borderColor: colors.primary,
             borderRadius: 4,
@@ -36,7 +42,10 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
         }
     });
     const debounceOnChangeText = useCallback(
-        debounce((text:string,heatId:number) => {
+        debounce((text:string,heatId:number,index) => {
+            let newLocalHeats = [...myRace.heats];
+            newLocalHeats[index].name = text;
+            dispatch(setMyRace({...myRace, heats: newLocalHeats}))
             updateHeatNameIntoSqlite(text,heatId)
         }, 600),
         []
@@ -48,17 +57,16 @@ export const EditHeatNames:React.FC<{localHeats:HeatModel[],setLocalHeats:any}> 
             horizontal={false} showsVerticalScrollIndicator={false}
         >
             {localHeats.map((heat, index) => {
+                const [localTextState,setLocalTextState] = useState(heat.name)
                 return <SafeAreaView style={styles.heatRowStyle} key={index}>
                     <Text style={styles.heatIndex}>{index}</Text>
                     <TextInput
                         onChangeText={(text) => {
-                            let newLocalHeats = [...localHeats];
-                            newLocalHeats[index].name = text;
-                            setLocalHeats(newLocalHeats)
-                            debounceOnChangeText(text,heat.heatId);
+                            setLocalTextState(text)
+                            debounceOnChangeText(text,heat.heatId,index);
                         }}
                         style={styles.input}
-                        value={localHeats[index].name}
+                        value={localTextState}
                     />
                 </SafeAreaView>
             })}

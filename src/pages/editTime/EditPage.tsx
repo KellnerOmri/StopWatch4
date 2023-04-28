@@ -1,8 +1,8 @@
 import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../utils/color";
 import {text} from "../../utils/dictionary-management";
-import {setMyRace, setSelectedPage} from "../../store/global.slice";
-import {HeatModel, PagesNameEnum} from "../../models";
+import {setSelectedPage} from "../../store/global.slice";
+import {PagesNameEnum} from "../../models";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import React, {useState} from "react";
 import {EditSyncTime} from "./components/EditSyncTime";
@@ -54,11 +54,9 @@ export const EditPage = () => {
         },
     });
     const [isSyncSelected,setIsSyncSelected]=useState(false)
-    const [localHeats,setLocalHeats] = useState<HeatModel[]>([...myRace.heats])
 
 
     const onBackPress= async ()=>{
-        await dispatch(setMyRace({...myRace, heats: localHeats}))
         dispatch(setSelectedPage(PagesNameEnum.raceDetails))
         uploadRaceToNetworkDb(myRace)
     }
@@ -71,6 +69,6 @@ export const EditPage = () => {
                 <TouchableOpacity style={!isSyncSelected?styles.categorySelected:styles.categoryNotSelected} onPress={()=>setIsSyncSelected(false)}><Text style={!isSyncSelected?styles.textSelected:styles.textNotSelected}>Edit heats name</Text></TouchableOpacity>
             </View>
         {isSyncSelected ? <EditSyncTime />
-        :<EditHeatNames localHeats={localHeats} setLocalHeats={setLocalHeats}/>}
+        :<EditHeatNames />}
     </View>
 }

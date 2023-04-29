@@ -5,7 +5,7 @@
     "slug": "StopWatch4",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/stopwatchimage.png",
+    "icon": "./assets/stopwatchAppLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/stopwatchimage.png",
@@ -19,7 +19,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 13,
+      "versionCode": 14,
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatch4logo.png",
         "backgroundColor": "#ffffff"

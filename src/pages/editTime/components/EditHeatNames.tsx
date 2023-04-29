@@ -42,25 +42,11 @@ export const EditHeatNames = () => {
         }
     });
 
-
-
-//     let fruits = ['apple', 'banana', 'orange'];
-//
-// // find the index of 'orange'
-//     let index = fruits.indexOf('orange');
-//
-// // replace 'orange' with 'pear'
-//     fruits.splice(index, 1, 'pear');
-//
-// // the new array is ['apple', 'banana', 'pear']
-//     console.log(fruits);
     const debounceOnChangeText = useCallback(
         debounce((text:string,heatId:number,index) => {
             let newLocalHeats = [...myRace.heats];
             let newHeat:HeatModel = {...myRace.heats[index],name:text}
-
             newLocalHeats.splice(index,1,newHeat);
-            // newLocalHeats[index].name = text;
             dispatch(setMyRace({...myRace, heats: newLocalHeats}))
             updateHeatNameIntoSqlite(text,heatId)
         }, 600),

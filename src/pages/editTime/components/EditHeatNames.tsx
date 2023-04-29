@@ -1,7 +1,6 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {colors} from "../../../utils/color";
-import React, {useCallback, useState} from "react";
-import {debounce} from "lodash";
+import React, {useState} from "react";
 import {updateHeatNameIntoSqlite} from "../../../utils/db-service";
 import {HeatModel} from "../../../models";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
@@ -42,17 +41,6 @@ export const EditHeatNames = () => {
         }
     });
 
-    const debounceOnChangeText = useCallback(
-        debounce((text:string,heatId:number,index) => {
-            let newLocalHeats = [...myRace.heats];
-            let newHeat:HeatModel = {...myRace.heats[index],name:text}
-            newLocalHeats.splice(index,1,newHeat);
-            dispatch(setMyRace({...myRace, heats: newLocalHeats}))
-            updateHeatNameIntoSqlite(text,heatId)
-        }, 600),
-        []
-    );
-
     return <View style={styles.container}>
         <ScrollView
             scrollEnabled={true}
@@ -65,7 +53,11 @@ export const EditHeatNames = () => {
                     <TextInput
                         onChangeText={(text) => {
                             setLocalTextState(text)
-                            debounceOnChangeText(text,heat.heatId,index);
+                            updateHeatNameIntoSqlite(text,heat.heatId)
+                            let newLocalHeats = [...myRace.heats];
+                            let newHeat:HeatModel = {...myRace.heats[index],name:text}
+                            newLocalHeats.splice(index,1,newHeat);
+                            dispatch(setMyRace({...myRace, heats: newLocalHeats}))
                         }}
                         style={styles.input}
                         value={localTextState}

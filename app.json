@@ -8,7 +8,7 @@
     "icon": "./assets/stopwatchAppLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/stopwatchimage.png",
+      "image": "./assets/stopwatchAppLogo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,13 +21,13 @@
     "android": {
       "versionCode": 14,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/stopwatch4logo.png",
+        "foregroundImage": "./assets/stopwatchAppLogo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.omrikellner.StopWatch4"
     },
     "web": {
-      "favicon": "./assets/stopwatchimage.png"
+      "favicon": "./assets/stopwatchAppLogo.png"
     },
     "extra": {
       "eas": {

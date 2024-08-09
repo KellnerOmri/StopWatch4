@@ -2,7 +2,7 @@ import {store} from "../app/store";
 import {Menu} from "./menu/Menu";
 import {StartNewRace} from "./startNewRace/StartNewRace";
 import {Provider} from "react-redux";
-import React from "react";
+import React, {useState} from "react";
 import {I18nManager, Platform, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {PagesNameEnum} from "../models";

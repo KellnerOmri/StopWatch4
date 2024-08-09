@@ -5,17 +5,18 @@ import {text} from "../../utils/dictionary-management";
 import {setIsLocked, setMyRace, setSelectedHeats, setSelectedMode, setSelectedPage} from "../../store/global.slice";
 import {HeatModel, PagesNameEnum} from "../../models";
 import moment from "moment";
-import {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {HeatDisplayRow} from "./components/HeatDisplayRow";
 import {HeatStateEnum} from "../../models/heatState.enum";
 import {db, deleteHeatNameFromSqlite} from "../../utils/db-service";
 import {uploadRaceToNetworkDb} from "../../utils/nework-service";
 
+
 export const RaceDetails = () => {
     const dispatch = useAppDispatch()
     const {myRace, isLocked, clientId, selectedHeats, isSelectedMode} = useAppSelector(state => state.global);
     const ownerRace: boolean = myRace.clientId === clientId;
-
+    const [refreshTime,setRefreshTime]= useState(false)
     const styles = StyleSheet.create({
         container: {
             height: "100%", width: "100%", alignItems: "center", paddingTop: 25
@@ -62,6 +63,15 @@ export const RaceDetails = () => {
             justifyContent: "center",
         }, lockIcon: {
             display: "flex", justifyContent: "center", position: "relative",
+        }, refreshButton: {
+            backgroundColor: colors.white,
+            width: 45,
+            height: 45,
+            position: "relative",
+            borderRadius: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         }
 
 
@@ -70,16 +80,15 @@ export const RaceDetails = () => {
         }, heatsWrapper: {
             display: "flex", flexDirection: "column", gap: 10
         }, raceNameStyle: {
-            width:"60%",
-            alignItems:'center',
-            display:"flex",
-            justifyContent:"center",
-            flexDirection:"row",
-            textAlign:"center"
+            width: "60%",
+            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "row",
+            textAlign: "center"
         }
     });
     const [nowTime, setNowTime] = useState(new Date().getTime());
-
     useEffect(() => {
         const interval = setInterval(() => {
             const dateNow = new Date();
@@ -90,8 +99,11 @@ export const RaceDetails = () => {
 
     const syncTime = useMemo(() => {
         return moment(myRace.gapMills + nowTime).format("HH:mm:ss")
-    }, [nowTime])
+    }, [nowTime,refreshTime])
 
+    const refreshPage = () => {
+        setRefreshTime(!refreshTime)
+    }
 
     const addHeats = async () => {
         const newHeat: HeatModel = {
@@ -175,6 +187,9 @@ export const RaceDetails = () => {
                     <Image style={{width: 30, height: 30}} source={require("../../assets/icons/cancel-icon.png")}/>
                 </TouchableOpacity>
             </View>}
+            <TouchableOpacity style={styles.refreshButton} onPress={refreshPage}>
+                <Image style={{width: 30, height: 30}} source={require("../../assets/icons/refresh-button.png")}/>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.addHeatButton} onPress={addHeats}>
                 <Text style={styles.plusText}>+</Text>
             </TouchableOpacity>

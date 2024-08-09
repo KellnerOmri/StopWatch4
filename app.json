@@ -20,7 +20,7 @@
       "bundleIdentifier": "com.omrikellner.StopWatch4"
     },
     "android": {
-      "versionCode": 16,
+      "versionCode": 17,
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatchAppLogo.png",
         "backgroundColor": "#ffffff"

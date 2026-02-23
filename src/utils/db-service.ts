@@ -1,37 +1,21 @@
-import * as SQLite from "expo-sqlite";
+import { openDatabaseSync, SQLiteDatabase } from "expo-sqlite";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {WebSQLDatabase} from "expo-sqlite/src/SQLite.types";
-export const db : WebSQLDatabase = SQLite.openDatabase('stopWatchDb');
+export const db: SQLiteDatabase = openDatabaseSync('stopWatchDb');
 import {store} from "../app/store";
 import {setClientId, setStorageRaceId} from "../store/global.slice";
-import {HeatModel, RaceModel} from "../models";
 import {HeatStateEnum} from "../models/heatState.enum";
 const dispatch = store.dispatch
 export  const dropSqliteTables=  ()=>{
-   db.transaction(tx=>{
-    tx.executeSql(
-        "DROP TABLE IF EXISTS sqliteRaceTable;"
-    )
-  })
-    db.transaction(tx=>{
-        tx.executeSql(
-            "DROP TABLE IF EXISTS sqliteHeatTable;"
-        )
-    })
+    db.execSync("DROP TABLE IF EXISTS sqliteRaceTable;");
+    db.execSync("DROP TABLE IF EXISTS sqliteHeatTable;");
 }
 export const createSqliteTables=()=>{
-  db.transaction(tx => {
-    tx.executeSql(
+    db.execSync(
         "create table if not exists sqliteRaceTable (raceId integer primary key not null, gapMills int, name text,clientId integer,creationTime integer);"
     );
-  });
-
-    db.transaction(tx => {
-        tx.executeSql(
-            "create table if not exists sqliteHeatTable (heatId integer primary key not null,raceId integer, startTime text, name text,heatStateNum int,creationTime integer);"
-        );
-    });
-
+    db.execSync(
+        "create table if not exists sqliteHeatTable (heatId integer primary key not null,raceId integer, startTime text, name text,heatStateNum int,creationTime integer);"
+    );
 }
 export const getClientIdFromLocalStorage= async ()=>{
     try {
@@ -71,36 +55,20 @@ export const setRaceIdIntoLocalStorage = async ( value:number) => {
 }
 
 export const updateRaceGapMilsIntoSqlite=(raceId:number,gapMills:number)=>{
-    db.transaction(tx => {
-        tx.executeSql(
-            "update sqliteRaceTable set gapMills = ? where raceId = ?;",[gapMills,raceId]
-        );
-    });
+    db.runSync("update sqliteRaceTable set gapMills = ? where raceId = ?;", [gapMills, raceId]);
 }
 
 
 export const updateHeatStartTimeIntoSqlite=(startTime:string,heatStateNum:HeatStateEnum,heatId:number)=>{
-    db.transaction(tx => {
-        tx.executeSql(
-            "update sqliteHeatTable set startTime = ?,heatStateNum=? where heatId = ?;",[startTime,heatStateNum,heatId]
-        );
-    });
+    db.runSync("update sqliteHeatTable set startTime = ?,heatStateNum=? where heatId = ?;", [startTime, heatStateNum, heatId]);
 }
 
 export const updateHeatNameIntoSqlite=(name:string,heatId:number)=>{
-    db.transaction(tx => {
-        tx.executeSql(
-            "update sqliteHeatTable set name = ? where heatId = ?;",[name,heatId]
-        );
-    });
+    db.runSync("update sqliteHeatTable set name = ? where heatId = ?;", [name, heatId]);
 }
 export const deleteHeatNameFromSqlite = (heatIdArray: number[]) => {
-    db.transaction((tx) => {
-        const ids = heatIdArray.join(',');
-        tx.executeSql(
-            'DELETE FROM sqliteHeatTable WHERE heatId IN (' + ids + ')'
-        );
-    });
+    const ids = heatIdArray.join(',');
+    db.execSync('DELETE FROM sqliteHeatTable WHERE heatId IN (' + ids + ')');
 };
 
 

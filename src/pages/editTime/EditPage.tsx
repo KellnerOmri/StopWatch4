@@ -1,74 +1,59 @@
-import {Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {colors} from "../../utils/color";
-import {text} from "../../utils/dictionary-management";
-import {setSelectedPage} from "../../store/global.slice";
-import {PagesNameEnum} from "../../models";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import React, {useState} from "react";
-import {EditSyncTime} from "./components/EditSyncTime";
-import {EditHeatNames} from "./components/EditHeatNames";
-import {uploadRaceToNetworkDb} from "../../utils/nework-service";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { setSelectedPage } from '../../store/global.slice';
+import { PagesNameEnum } from '../../models';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { EditSyncTime } from './components/EditSyncTime';
+import { EditHeatNames } from './components/EditHeatNames';
+import { uploadRaceToNetworkDb } from '../../utils/nework-service';
+import { ScreenContainer } from '../../components/shared/ScreenContainer';
+import { BackButton } from '../../components/shared/BackButton';
+import { TabBar } from '../../components/shared/TabBar';
+import { ThemedText } from '../../components/shared/ThemedText';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export const EditPage = () => {
-    const dispatch = useAppDispatch()
-    const {myRace} = useAppSelector(state => state.global);
+    const dispatch = useAppDispatch();
+    const { myRace } = useAppSelector(state => state.global);
+    const { t } = useLanguage();
+    const [selectedTab, setSelectedTab] = useState(0);
 
-    const styles = StyleSheet.create({
-        container: {
-            height: "100%",
-            width: "100%",
-            paddingTop: 25,
-            paddingHorizontal:20
-        },
-        backStyle: {
-            fontSize: 18,
-            color: colors.primary
+    const onBackPress = async () => {
+        dispatch(setSelectedPage(PagesNameEnum.raceDetails));
+        uploadRaceToNetworkDb(myRace);
+    };
 
-        },editMenuWrapper:{
-            marginTop:20,
-            display:"flex",
-            flexDirection:"row",
-            width:"100%",
-            justifyContent:"space-around",
-        },
-        categorySelected:{
-            width:"50%",
-            backgroundColor:colors.primary,
-            alignItems:"center",
-            borderTopLeftRadius:20,
-            borderTopRightRadius:20,
-
-        },
-        textSelected:{
-            color:colors.white
-        },
-        categoryNotSelected:{
-            borderTopLeftRadius:20,
-            borderTopRightRadius:20,
-            width:"50%",
-            backgroundColor:colors.lightGrey,
-            alignItems:"center"
-        },
-        textNotSelected:{
-            color:colors.dark
-        },
-    });
-    const [isSyncSelected,setIsSyncSelected]=useState(false)
-
-
-    const onBackPress= async ()=>{
-        dispatch(setSelectedPage(PagesNameEnum.raceDetails))
-        uploadRaceToNetworkDb(myRace)
-    }
-    return <View style={styles.container}>
-            <Pressable onPress={()=>onBackPress()}>
-                <Text style={styles.backStyle}>{text.back}</Text>
-            </Pressable>
-            <View style={styles.editMenuWrapper}>
-                <TouchableOpacity style={isSyncSelected?styles.categorySelected:styles.categoryNotSelected} onPress={()=>setIsSyncSelected(true)}><Text style={isSyncSelected?styles.textSelected:styles.textNotSelected}>Sync time</Text></TouchableOpacity>
-                <TouchableOpacity style={!isSyncSelected?styles.categorySelected:styles.categoryNotSelected} onPress={()=>setIsSyncSelected(false)}><Text style={!isSyncSelected?styles.textSelected:styles.textNotSelected}>Edit heats name</Text></TouchableOpacity>
+    return (
+        <ScreenContainer>
+            <View style={styles.headerRow}>
+                <BackButton onPress={onBackPress} />
+                <ThemedText variant="heading2">{t.edit}</ThemedText>
+                <View style={styles.placeholder} />
             </View>
-        {isSyncSelected ? <EditSyncTime />
-        :<EditHeatNames />}
-    </View>
-}
+            <TabBar
+                tabs={[t.syncTime, t.editHeatsName]}
+                selectedIndex={selectedTab}
+                onSelect={setSelectedTab}
+            />
+            <View style={styles.content}>
+                {selectedTab === 0 ? <EditSyncTime /> : <EditHeatNames />}
+            </View>
+        </ScreenContainer>
+    );
+};
+
+const styles = StyleSheet.create({
+    headerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
+    placeholder: {
+        width: 60,
+    },
+    content: {
+        flex: 1,
+        marginTop: 16,
+    },
+});

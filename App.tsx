@@ -1,21 +1,25 @@
 import {Provider} from "react-redux";
 import {store} from "./src/app/store";
 import AppPageController from "./src/pages/AppPageController";
-import {StatusBar} from "expo-status-bar";
 import {useEffect} from "react";
 import {getClientId} from "./src/utils/nework-service";
-import {getRaceIdFromLocalStorage} from "./src/utils/db-service";
+import {createSqliteTables, getRaceIdFromLocalStorage} from "./src/utils/db-service";
+import {ThemeProvider} from "./src/theme/ThemeContext";
+import {LanguageProvider} from "./src/i18n/LanguageContext";
 
 export default function App() {
     useEffect(()=>{
+        createSqliteTables()
         getClientId().then()
         getRaceIdFromLocalStorage().then()
     },[])
     return (
         <Provider store={store}>
-            <AppPageController/>
-            <StatusBar style="auto"/>
+            <ThemeProvider>
+                <LanguageProvider>
+                    <AppPageController/>
+                </LanguageProvider>
+            </ThemeProvider>
         </Provider>
-
     );
 }

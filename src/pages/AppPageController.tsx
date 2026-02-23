@@ -2,59 +2,54 @@ import {store} from "../app/store";
 import {Menu} from "./menu/Menu";
 import {StartNewRace} from "./startNewRace/StartNewRace";
 import {Provider} from "react-redux";
-import React, {useState} from "react";
-import {I18nManager, Platform, StyleSheet, Text, View} from 'react-native';
-import {useAppDispatch, useAppSelector} from "../app/hooks";
+import React from "react";
+import {I18nManager, StyleSheet, Text, View} from 'react-native';
+import {useAppSelector} from "../app/hooks";
 import {PagesNameEnum} from "../models";
-import {setSelectedPage} from "../store/global.slice";
 import {RaceDetails} from "./raceDetails/RaceDetails";
 import {EditPage} from "./editTime/EditPage";
 import {ImportRace} from "./importRace/ImportRace";
-
+import {Settings} from "./settings/Settings";
+import {useTheme} from "../theme/ThemeContext";
 
 export default function AppPageController() {
     I18nManager.allowRTL(false);
     I18nManager.forceRTL(false);
 
     const {selectedPage} = useAppSelector(state => state.global);
+    const {theme} = useTheme();
 
     const renderPage = () => {
         switch (selectedPage) {
             case PagesNameEnum.startNewRace:
-            {
                 return <StartNewRace/>
-            }
-            case PagesNameEnum.importRace: {
+            case PagesNameEnum.importRace:
                 return <ImportRace/>
-            }
-            case PagesNameEnum.menu: {
+            case PagesNameEnum.menu:
                 return <Menu/>
-            }
-            case PagesNameEnum.raceDetails: {
+            case PagesNameEnum.raceDetails:
                 return <RaceDetails/>
-            }
-            case PagesNameEnum.editTime: {
+            case PagesNameEnum.editTime:
                 return <EditPage/>
-            }
-            default:{
+            case PagesNameEnum.settings:
+                return <Settings/>
+            default:
                 return <View><Text>default</Text></View>
-            }
         }
     }
 
     return (
         <Provider store={store}>
-            <View style={styles.container}>
+            <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
                 {renderPage()}
             </View>
         </Provider>
-
     );
 }
+
 const styles = StyleSheet.create({
     container: {
-        paddingTop:Platform.OS === 'android'?"5%":"10%",
-        direction:"ltr",
-        textAlign:"left",
+        flex: 1,
+        direction: "ltr",
     },
 });

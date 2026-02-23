@@ -44,7 +44,8 @@
           }
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-font"
     ],
     "web": {
       "favicon": "./assets/stopwatchAppLogo.png"
@@ -54,9 +55,7 @@
         "projectId": "662634cc-6859-4494-9636-5fc68b63d536"
       }
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/662634cc-6859-4494-9636-5fc68b63d536"
     }

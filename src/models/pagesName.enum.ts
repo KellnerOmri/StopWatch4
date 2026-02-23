@@ -3,5 +3,6 @@ export enum PagesNameEnum {
     importRace = "importRace",
     raceDetails = "raceDetails",
     editTime = "editTime",
-    menu = "menu"
+    menu = "menu",
+    settings = "settings"
 }

@@ -5,58 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="715264a5-c673-40f7-90e7-bc0a815cddba" name="Changes" comment="new design">
-      <change afterPath="$PROJECT_DIR$/android/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/.kotlin/sessions/kotlin-compiler-13700621684808820280.salive" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/debug.keystore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/debugOptimized/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/java/com/omrikellner/StopWatch4/MainActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/java/com/omrikellner/StopWatch4/MainApplication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/rn_edit_text_material.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/.xcode.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Podfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/Podfile.properties.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4.xcodeproj/project.pbxproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4.xcodeproj/xcshareddata/xcschemes/StopWatch4.xcscheme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/AppDelegate.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLegacy.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLegacy.imageset/image.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLegacy.imageset/image@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLegacy.imageset/image@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Info.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/PrivacyInfo.xcprivacy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/SplashScreen.storyboard" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios/StopWatch4/Supporting/Expo.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/debug/java/com/omrikellner/StopWatch4/ReactNativeFlipper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/omrikellner/StopWatch4/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/omrikellner/StopWatch4/MainApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/release/java/com/omrikellner/StopWatch4/ReactNativeFlipper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLogo.imageset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLogo.imageset/image.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLogo.imageset/image@2x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Images.xcassets/SplashScreenLogo.imageset/image@3x.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/StopWatch4-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/StopWatch4/StopWatch4-Bridging-Header.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/noop-file.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/app/upload-certificate.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.kotlin/sessions/kotlin-compiler-13700621684808820280.salive" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,33 +47,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;new-design-by-cloaue&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/omrikellner/WebstormProjects/StopWatch4/src/assets/sounds&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/omrikellner/WebstormProjects/StopWatch4/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cidr.known.project.marker": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "new-design-by-cloaue",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/omrikellner/WebstormProjects/StopWatch4/src/assets/sounds",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/Users/omrikellner/WebstormProjects/StopWatch4/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/assets/sounds" />
@@ -247,7 +198,7 @@
       <workItem from="1765622438484" duration="9035000" />
       <workItem from="1766693744127" duration="1488000" />
       <workItem from="1771662419989" duration="1021000" />
-      <workItem from="1771880709273" duration="12403000" />
+      <workItem from="1771880709273" duration="13951000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681363061631</created>
@@ -489,7 +440,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771967631201</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="new design">
+      <option name="closed" value="true" />
+      <created>1772383594948</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1772383594948</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

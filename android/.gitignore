@@ -14,3 +14,7 @@ local.properties
 
 # Bundle artifacts
 *.jsbundle
+
+# Release signing
+upload-keystore.jks
+upload-certificate.pem

@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="715264a5-c673-40f7-90e7-bc0a815cddba" name="Changes" comment="new design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/StopWatch4/Info.plist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +199,7 @@
       <workItem from="1771662419989" duration="1021000" />
       <workItem from="1771880709273" duration="16186000" />
       <workItem from="1772627455115" duration="2787000" />
-      <workItem from="1772641943301" duration="8152000" />
+      <workItem from="1772641943301" duration="9666000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681363061631</created>
@@ -523,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772791607194</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="new design">
+      <option name="closed" value="true" />
+      <created>1772811035668</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1772811035668</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

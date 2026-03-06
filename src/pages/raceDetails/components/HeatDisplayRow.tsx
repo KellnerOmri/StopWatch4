@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Linking,
     Platform,
     Pressable,
     Share,
@@ -111,13 +110,11 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel; index: number; ownerRac
     };
 
     const shareText = async () => {
-        const message = `${heat.name} ${heat.startTime}`;
-        const whatsappUrl = `whatsapp://send?&text=${message}`;
-        const supported = await Linking.canOpenURL(whatsappUrl);
-        if (supported) {
-            await Linking.openURL(whatsappUrl);
-        } else {
+        try {
+            const message = `${heat.name} ${heat.startTime}`;
             await Share.share({ message });
+        } catch (error) {
+            console.log('Error sharing:', error);
         }
     };
 

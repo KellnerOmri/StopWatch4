@@ -4,5 +4,6 @@ export enum PagesNameEnum {
     raceDetails = "raceDetails",
     editTime = "editTime",
     menu = "menu",
-    settings = "settings"
+    settings = "settings",
+    manualStart = "manualStart"
 }

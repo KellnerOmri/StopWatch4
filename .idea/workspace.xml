@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="715264a5-c673-40f7-90e7-bc0a815cddba" name="Changes" comment="new design">
-      <change afterPath="$PROJECT_DIR$/src/pages/manualStart/ManualStart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/i18n/dictionaries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/i18n/dictionaries.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/globalSlice.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/globalSlice.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/pagesName.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/pagesName.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AppPageController.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AppPageController.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/raceDetails/components/HeatDisplayRow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/raceDetails/components/HeatDisplayRow.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/global.slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/global.slice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/nework-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/nework-service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="715264a5-c673-40f7-90e7-bc0a815cddba" name="Changes" comment="new design" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,7 +197,7 @@
       <workItem from="1771662419989" duration="1021000" />
       <workItem from="1771880709273" duration="16186000" />
       <workItem from="1772627455115" duration="2787000" />
-      <workItem from="1772641943301" duration="13398000" />
+      <workItem from="1772641943301" duration="22617000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681363061631</created>
@@ -545,7 +535,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772816496402</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="new design">
+      <option name="closed" value="true" />
+      <created>1772884219241</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1772884219241</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

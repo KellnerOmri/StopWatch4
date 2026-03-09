@@ -13,5 +13,6 @@ export interface GlobalSliceModel {
    isLocked:boolean,
    isSelectedMode:boolean
    selectedHeats:number[]
+   manualStartHeatId:number
    // sqliteDb:WebSQLDatabase
 }

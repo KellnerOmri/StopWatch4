@@ -10,6 +10,7 @@ import {RaceDetails} from "./raceDetails/RaceDetails";
 import {EditPage} from "./editTime/EditPage";
 import {ImportRace} from "./importRace/ImportRace";
 import {Settings} from "./settings/Settings";
+import {ManualStart} from "./manualStart/ManualStart";
 import {useTheme} from "../theme/ThemeContext";
 
 export default function AppPageController() {
@@ -33,6 +34,8 @@ export default function AppPageController() {
                 return <EditPage/>
             case PagesNameEnum.settings:
                 return <Settings/>
+            case PagesNameEnum.manualStart:
+                return <ManualStart/>
             default:
                 return <View><Text>default</Text></View>
         }

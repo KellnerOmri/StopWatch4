@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {GlobalSliceModel,PagesNameEnum,RaceModel}  from "../models";
 import {RaceDescriptionModel} from "../models/RaceDescription.model";
-import {WebSQLDatabase} from "expo-sqlite/src/SQLite.types";
-import * as SQLite from "expo-sqlite";
 
 const initialState: GlobalSliceModel = {
   selectedPage : PagesNameEnum.menu,
@@ -13,7 +11,8 @@ const initialState: GlobalSliceModel = {
   raceId:0,
   isLocked:false,
   isSelectedMode:false,
-  selectedHeats:[]
+  selectedHeats:[],
+  manualStartHeatId:0
   // sqliteDb:SQLite.openDatabase('stopWatchDb')
 };
 export const globalSlice = createSlice({
@@ -46,6 +45,9 @@ export const globalSlice = createSlice({
     },setSelectedHeats: (state, action: PayloadAction<number[]>) => {
       state.selectedHeats = action.payload;
     },
+    setManualStartHeatId: (state, action: PayloadAction<number>) => {
+      state.manualStartHeatId = action.payload;
+    },
   },
 });
 
@@ -58,6 +60,7 @@ export const {
   setRaceId,
   setIsLocked,
   setSelectedMode,
-  setSelectedHeats
+  setSelectedHeats,
+  setManualStartHeatId
 } = globalSlice.actions;
 export default globalSlice.reducer;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Linking,
     Platform,
     Pressable,
     Share,
@@ -15,7 +14,8 @@ import { HeatModel } from '../../../models';
 import moment from 'moment/moment';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { HeatStateEnum } from '../../../models/heatState.enum';
-import { setIsLocked, setMyRace, setSelectedHeats, setSelectedMode } from '../../../store/global.slice';
+import { setIsLocked, setManualStartHeatId, setMyRace, setSelectedHeats, setSelectedMode, setSelectedPage } from '../../../store/global.slice';
+import { PagesNameEnum } from '../../../models';
 import { updateHeatStartTimeIntoSqlite } from '../../../utils/db-service';
 import { uploadRaceToNetworkDb } from '../../../utils/nework-service';
 import { Audio } from 'expo-av';
@@ -111,13 +111,11 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel; index: number; ownerRac
     };
 
     const shareText = async () => {
-        const message = `${heat.name} ${heat.startTime}`;
-        const whatsappUrl = `whatsapp://send?&text=${message}`;
-        const supported = await Linking.canOpenURL(whatsappUrl);
-        if (supported) {
-            await Linking.openURL(whatsappUrl);
-        } else {
+        try {
+            const message = `${heat.name} ${heat.startTime}`;
             await Share.share({ message });
+        } catch (error) {
+            console.log('Error sharing:', error);
         }
     };
 
@@ -145,6 +143,19 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel; index: number; ownerRac
             }
             dispatch(setSelectedHeats(newSelectedHeats));
         }
+    };
+
+    const onManualStartPressed = () => {
+        if (!ownerRace || (isLocked && heat.heatStateNum !== HeatStateEnum.ready)) {
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(t.pleaseUnlockFirst, ToastAndroid.SHORT);
+            } else {
+                Alert.alert(t.pleaseUnlockFirst);
+            }
+            return;
+        }
+        dispatch(setManualStartHeatId(heat.heatId));
+        dispatch(setSelectedPage(PagesNameEnum.manualStart));
     };
 
     const onLongPress = () => {
@@ -214,6 +225,16 @@ export const HeatDisplayRow: React.FC<{ heat: HeatModel; index: number; ownerRac
                         <Ionicons name="share-outline" size={20} color={theme.colors.textTertiary} />
                     </TouchableOpacity>
 
+                    {/* Manual start button */}
+                    {ownerRace && !isRunning && (
+                        <TouchableOpacity
+                            onPress={onManualStartPressed}
+                            style={[styles.manualButton, { backgroundColor: theme.colors.primary + '18' }]}
+                        >
+                            <Ionicons name="pencil-outline" size={14} color={theme.colors.primary} />
+                        </TouchableOpacity>
+                    )}
+
                     {/* Action button */}
                     {ownerRace && (
                         <TouchableOpacity
@@ -258,6 +279,14 @@ const styles = StyleSheet.create({
     shareButton: {
         padding: 8,
         marginRight: 8,
+    },
+    manualButton: {
+        width: 32,
+        height: 32,
+        borderRadius: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 6,
     },
     actionButton: {
         paddingHorizontal: 16,

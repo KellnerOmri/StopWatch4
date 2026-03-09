@@ -1,0 +1,20 @@
+Index: eas.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n  \"cli\": {\n    \"version\": \">= 12.0.0\",\n    \"promptToConfigurePushNotifications\": false,\n    \"appVersionSource\": \"remote\"\n  },\n  \"build\": {\n    \"development\": {\n      \"developmentClient\": true,\n      \"distribution\": \"internal\",\n      \"ios\": {\n        \"resourceClass\": \"m-medium\"\n      },\n      \"android\": {\n        \"buildType\": \"apk\"\n      }\n    },\n    \"preview\": {\n      \"distribution\": \"internal\",\n      \"ios\": {\n        \"resourceClass\": \"m-medium\"\n      },\n      \"android\": {\n        \"buildType\": \"apk\"\n      }\n    },\n    \"production\": {\n      \"autoIncrement\": true,\n      \"ios\": {\n        \"resourceClass\": \"m-medium\"\n      },\n      \"android\": {\n        \"buildType\": \"app-bundle\"\n      }\n    }\n  },\n  \"submit\": {\n    \"production\": {\n      \"android\": {\n        \"serviceAccountKeyPath\": \"./google-services-key.json\",\n        \"track\": \"production\"\n      }\n    }\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/eas.json b/eas.json
+--- a/eas.json	(revision 91ac4522ae51992ccc9a86411e5e65e6999be233)
++++ b/eas.json	(date 1772884972966)
+@@ -39,6 +39,9 @@
+       "android": {
+         "serviceAccountKeyPath": "./google-services-key.json",
+         "track": "production"
++      },
++      "ios": {
++        "ascAppId": ""
+       }
+     }
+   }

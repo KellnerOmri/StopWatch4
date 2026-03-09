@@ -74,6 +74,21 @@ export const getClientId = async () => {
     }
 };
 
+export interface GunTimeModel {
+    id: number;
+    time: string;
+}
+
+export const getGunshots = async (sinceSeconds: number = 600): Promise<GunTimeModel[]> => {
+    try {
+        const response = await axios.get(`https://www.4sport-live.com/stopwatch4/gunshots/?sinceSeconds=${sinceSeconds}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching gunshots:', error);
+        return [];
+    }
+};
+
 const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "*",

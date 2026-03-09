@@ -60,7 +60,8 @@ export const RaceDetails = () => {
 
     useEffect(() => {
         if (myRace.clientId === clientId) {
-            dispatch(setIsLocked(false));
+            const hasRunningHeat = myRace.heats.some(h => h.heatStateNum === HeatStateEnum.running);
+            dispatch(setIsLocked(hasRunningHeat));
         } else {
             dispatch(setIsLocked(true));
         }

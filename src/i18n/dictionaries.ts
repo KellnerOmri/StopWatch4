@@ -38,6 +38,19 @@ export interface Dictionary {
     importRaceTitle: string;
     owner: string;
 
+    // ManualStart
+    manualStart: string;
+    enterStartTime: string;
+    sinceMinutes: string;
+    custom: string;
+    loadGunTimes: string;
+    noGunTimesFound: string;
+    timeNotInGunList: string;
+    confirmManualTime: string;
+    cancel: string;
+    ok: string;
+    selectGunTime: string;
+
     // Settings
     appearance: string;
     darkMode: string;
@@ -69,6 +82,17 @@ export const en: Dictionary = {
     reset: 'Reset',
     selected: 'selected',
     pleaseUnlockFirst: 'Please unlock first',
+    manualStart: 'Manual Start',
+    enterStartTime: 'Enter start time (HH:mm:ss.SS)',
+    sinceMinutes: 'Pull gun times from last',
+    custom: 'Custom',
+    loadGunTimes: 'Load gun times',
+    noGunTimesFound: 'No gun times found',
+    timeNotInGunList: 'This start time does not match any gun time. Are you sure you want to use it?',
+    confirmManualTime: 'Confirm',
+    cancel: 'Cancel',
+    ok: 'OK',
+    selectGunTime: 'Select a gun time',
 
     syncTime: 'Sync time',
     editHeatsName: 'Edit heat names',
@@ -111,6 +135,17 @@ export const he: Dictionary = {
     reset: 'אפס',
     selected: 'נבחרו',
     pleaseUnlockFirst: 'נא לפתוח נעילה',
+    manualStart: 'התחלה ידנית',
+    enterStartTime: 'הכנס זמן התחלה (HH:mm:ss.SS)',
+    sinceMinutes: 'שלוף זמני ירייה מהאחרונות',
+    custom: 'מותאם אישית',
+    loadGunTimes: 'טען זמני ירייה',
+    noGunTimesFound: 'לא נמצאו זמני ירייה',
+    timeNotInGunList: 'זמן ההתחלה לא תואם לרשימת זמני הירייה. האם אתה בטוח שברצונך להשתמש בו?',
+    confirmManualTime: 'אשר',
+    cancel: 'ביטול',
+    ok: 'אישור',
+    selectGunTime: 'בחר זמן ירייה',
 
     syncTime: 'סנכרן זמן',
     editHeatsName: 'ערוך שמות',

@@ -21,7 +21,7 @@
       "buildNumber": "3"
     },
     "android": {
-      "versionCode": 19,
+      "versionCode": 21,
       "adaptiveIcon": {
         "foregroundImage": "./assets/stopwatchAppLogo.png",
         "backgroundColor": "#ffffff"
@@ -37,8 +37,11 @@
             "targetSdkVersion": 35,
             "minSdkVersion": 24,
             "buildToolsVersion": "35.0.0",
-            "extraProguardRules": "-keep class ** { *; }",
-            "enableProguardInReleaseBuilds": false
+            "ndkVersion": "27.0.12077973",
+            "useLegacyPackaging": false,
+            "enableProguardInReleaseBuilds": false,
+            "newArchEnabled": true,
+            "extraProguardRules": "-keep class ** { *; }"
           }
         }
       ],

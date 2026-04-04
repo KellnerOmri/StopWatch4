@@ -77,6 +77,7 @@ export const getClientId = async () => {
 export interface GunTimeModel {
     id: number;
     time: string;
+    location?: string;
 }
 
 export const getGunshots = async (sinceSeconds: number = 600): Promise<GunTimeModel[]> => {

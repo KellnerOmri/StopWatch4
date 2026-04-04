@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     View,
     ScrollView,
@@ -45,9 +45,31 @@ export const ManualStart = () => {
     const [gunTimes, setGunTimes] = useState<GunTimeModel[]>([]);
     const [loading, setLoading] = useState(false);
     const [gunTimesLoaded, setGunTimesLoaded] = useState(false);
+    const [countdown, setCountdown] = useState(10);
+    const selectedRangeRef = useRef(selectedRange);
+
+    // Keep ref in sync so the polling interval uses the latest range
+    useEffect(() => {
+        selectedRangeRef.current = selectedRange;
+    }, [selectedRange]);
 
     useEffect(() => {
         loadGunTimes(selectedRange);
+
+        // Countdown timer: ticks every second from 10 to 0, then resets
+        const countdownInterval = setInterval(() => {
+            setCountdown(prev => (prev <= 1 ? 10 : prev - 1));
+        }, 1000);
+
+        // Polling: fetch gun times every 10 seconds
+        const pollingInterval = setInterval(() => {
+            loadGunTimes(selectedRangeRef.current);
+        }, 10000);
+
+        return () => {
+            clearInterval(countdownInterval);
+            clearInterval(pollingInterval);
+        };
     }, []);
 
     const loadGunTimes = async (minutes: number) => {
@@ -291,9 +313,16 @@ export const ManualStart = () => {
 
                 {/* Gun times list */}
                 <Card style={styles.section}>
-                    <ThemedText variant="caption" color={theme.colors.textSecondary} style={styles.label}>
-                        {t.selectGunTime}
-                    </ThemedText>
+                    <View style={styles.gunTimesHeader}>
+                        <ThemedText variant="caption" color={theme.colors.textSecondary} style={styles.label}>
+                            {t.selectGunTime}
+                        </ThemedText>
+                        <View style={[styles.countdownBadge, { backgroundColor: theme.colors.surfaceSecondary, borderColor: theme.colors.border }]}>
+                            <ThemedText variant="caption" color={theme.colors.textTertiary} style={{ fontSize: 11, fontFamily: 'Menlo' }}>
+                                {countdown}s
+                            </ThemedText>
+                        </View>
+                    </View>
                     {loading ? (
                         <ActivityIndicator size="small" color={theme.colors.primary} style={{ marginVertical: 16 }} />
                     ) : gunTimes.length === 0 && gunTimesLoaded ? (
@@ -315,13 +344,24 @@ export const ManualStart = () => {
                                     },
                                 ]}
                             >
-                                <ThemedText
-                                    variant="body"
-                                    style={{ fontFamily: 'Menlo', fontSize: 16 }}
-                                    color={startTime === gunTime.time ? theme.colors.primary : theme.colors.textPrimary}
-                                >
-                                    {gunTime.time}
-                                </ThemedText>
+                                <View style={styles.gunTimeRowContent}>
+                                    <ThemedText
+                                        variant="body"
+                                        style={{ fontFamily: 'Menlo', fontSize: 16 }}
+                                        color={startTime === gunTime.time ? theme.colors.primary : theme.colors.textPrimary}
+                                    >
+                                        {gunTime.time}
+                                    </ThemedText>
+                                    {gunTime.location ? (
+                                        <ThemedText
+                                            variant="caption"
+                                            color={theme.colors.textTertiary}
+                                            style={{ fontSize: 12 }}
+                                        >
+                                            {gunTime.location}
+                                        </ThemedText>
+                                    ) : null}
+                                </View>
                             </TouchableOpacity>
                         ))
                     )}
@@ -391,10 +431,27 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         alignItems: 'center',
     },
+    gunTimesHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    countdownBadge: {
+        borderWidth: 1,
+        borderRadius: 12,
+        paddingHorizontal: 8,
+        paddingVertical: 3,
+        marginBottom: 8,
+    },
     gunTimeRow: {
         paddingVertical: 12,
         paddingHorizontal: 8,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderRadius: 6,
+    },
+    gunTimeRowContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 });

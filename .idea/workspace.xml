@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="715264a5-c673-40f7-90e7-bc0a815cddba" name="Changes" comment="new design">
+      <change afterPath="$PROJECT_DIR$/ios.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/StopWatch4.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/StopWatch4.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/StopWatch4/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/StopWatch4/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/manualStart/ManualStart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/manualStart/ManualStart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/nework-service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/nework-service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,6 +207,9 @@
       <workItem from="1771880709273" duration="16186000" />
       <workItem from="1772627455115" duration="2787000" />
       <workItem from="1772641943301" duration="22617000" />
+      <workItem from="1773250477698" duration="9998000" />
+      <workItem from="1775072649733" duration="1811000" />
+      <workItem from="1775127951794" duration="4314000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1681363061631</created>
@@ -557,7 +563,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772996419417</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="new design">
+      <option name="closed" value="true" />
+      <created>1773072648578</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1773072648578</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Keyboard, ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { HeatModel } from '../../../models';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { setMyRace } from '../../../store/global.slice';
@@ -12,48 +12,53 @@ import { uploadRaceToNetworkDb } from '../../../utils/nework-service';
 import { useLanguage } from '../../../i18n/LanguageContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const HeatRow = ({ heat, index, onNameChange, onDelete }: {
+const HeatRow = ({ heat, index, onNameChange, onDelete, onFocus, onLayout }: {
     heat: HeatModel;
     index: number;
     onNameChange: (text: string) => void;
     onDelete: () => void;
+    onFocus: () => void;
+    onLayout: (y: number) => void;
 }) => {
     const { theme } = useTheme();
     const [localTextState, setLocalTextState] = useState(heat.name);
 
     return (
-        <Card style={styles.heatCard}>
-            <View style={styles.row}>
-                <View style={[styles.indexBadge, { backgroundColor: theme.colors.primaryContainer }]}>
-                    <ThemedText variant="caption" color={theme.colors.primary} style={{ fontWeight: '700' }}>
-                        {index}
-                    </ThemedText>
+        <View onLayout={(e) => onLayout(e.nativeEvent.layout.y)}>
+            <Card style={styles.heatCard}>
+                <View style={styles.row}>
+                    <View style={[styles.indexBadge, { backgroundColor: theme.colors.primaryContainer }]}>
+                        <ThemedText variant="caption" color={theme.colors.primary} style={{ fontWeight: '700' }}>
+                            {index}
+                        </ThemedText>
+                    </View>
+                    <TextInput
+                        onFocus={onFocus}
+                        onChangeText={(text) => {
+                            setLocalTextState(text);
+                            onNameChange(text);
+                        }}
+                        style={[
+                            styles.input,
+                            {
+                                color: theme.colors.textPrimary,
+                                borderBottomColor: theme.colors.border,
+                            },
+                        ]}
+                        placeholderTextColor={theme.colors.textTertiary}
+                        value={localTextState}
+                    />
+                    {heat.heatStateNum === HeatStateEnum.ready && (
+                        <TouchableOpacity
+                            onPress={onDelete}
+                            style={styles.deleteButton}
+                        >
+                            <Ionicons name="trash-outline" size={20} color={theme.colors.danger} />
+                        </TouchableOpacity>
+                    )}
                 </View>
-                <TextInput
-                    onChangeText={(text) => {
-                        setLocalTextState(text);
-                        onNameChange(text);
-                    }}
-                    style={[
-                        styles.input,
-                        {
-                            color: theme.colors.textPrimary,
-                            borderBottomColor: theme.colors.border,
-                        },
-                    ]}
-                    placeholderTextColor={theme.colors.textTertiary}
-                    value={localTextState}
-                />
-                {heat.heatStateNum === HeatStateEnum.ready && (
-                    <TouchableOpacity
-                        onPress={onDelete}
-                        style={styles.deleteButton}
-                    >
-                        <Ionicons name="trash-outline" size={20} color={theme.colors.danger} />
-                    </TouchableOpacity>
-                )}
-            </View>
-        </Card>
+            </Card>
+        </View>
     );
 };
 
@@ -63,6 +68,29 @@ export const EditHeatNames = () => {
     const { theme } = useTheme();
     const { t } = useLanguage();
     const scrollViewRef = useRef<ScrollView>(null);
+    const rowPositions = useRef<number[]>([]);
+    const focusedIndex = useRef<number>(-1);
+
+    useEffect(() => {
+        const sub = Keyboard.addListener('keyboardDidShow', (e) => {
+            const kbHeight = e.endCoordinates.height;
+            const idx = focusedIndex.current;
+            if (idx < 0) return;
+            const y = rowPositions.current[idx] ?? 0;
+            // Scroll so the row is visible above the keyboard
+            scrollViewRef.current?.scrollTo({ y: Math.max(0, y - 20), animated: true });
+        });
+        return () => sub.remove();
+    }, []);
+
+    const handleRowFocus = (index: number) => {
+        focusedIndex.current = index;
+        // If keyboard is already open (switching between inputs), scroll immediately
+        if (Keyboard.isVisible()) {
+            const y = rowPositions.current[index] ?? 0;
+            scrollViewRef.current?.scrollTo({ y: Math.max(0, y - 20), animated: true });
+        }
+    };
 
     const deleteHeat = async (heatId: number) => {
         const newHeats = myRace.heats.filter(h => h.heatId !== heatId);
@@ -94,11 +122,15 @@ export const EditHeatNames = () => {
     };
 
     return (
-        <KeyboardAvoidingView
-            style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-            <ScrollView ref={scrollViewRef} scrollEnabled={true} horizontal={false} showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+            <ScrollView
+                ref={scrollViewRef}
+                scrollEnabled={true}
+                horizontal={false}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+                contentContainerStyle={styles.scrollContent}
+            >
                 {myRace.heats.map((heat, index) => (
                     <HeatRow
                         key={heat.heatId}
@@ -112,26 +144,31 @@ export const EditHeatNames = () => {
                             dispatch(setMyRace({ ...myRace, heats: newLocalHeats }));
                         }}
                         onDelete={() => deleteHeat(heat.heatId)}
+                        onFocus={() => handleRowFocus(index)}
+                        onLayout={(y) => { rowPositions.current[index] = y; }}
                     />
                 ))}
+                <TouchableOpacity
+                    onPress={addHeat}
+                    activeOpacity={0.8}
+                    style={[styles.addButton, { backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary }]}
+                >
+                    <Ionicons name="add-circle-outline" size={22} color={theme.colors.onPrimary} />
+                    <ThemedText variant="button" color={theme.colors.onPrimary} style={styles.addButtonText}>
+                        {t.addHeat}
+                    </ThemedText>
+                </TouchableOpacity>
             </ScrollView>
-            <TouchableOpacity
-                onPress={addHeat}
-                activeOpacity={0.8}
-                style={[styles.addButton, { backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary }]}
-            >
-                <Ionicons name="add-circle-outline" size={22} color={theme.colors.onPrimary} />
-                <ThemedText variant="button" color={theme.colors.onPrimary} style={styles.addButtonText}>
-                    {t.addHeat}
-                </ThemedText>
-            </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    scrollContent: {
+        paddingBottom: 250,
     },
     heatCard: {
         marginBottom: 10,

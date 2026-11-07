@@ -118,8 +118,9 @@ export const EditSyncTime = () => {
         dateObj.setMilliseconds(0);
         const newGapMills = dateObj.getTime() - dateNow.getTime();
         updateRaceGapMilsIntoSqlite(myRace.raceId, newGapMills);
-        await dispatch(setMyRace({ ...myRace, gapMills: newGapMills }));
-        uploadRaceToNetworkDb(myRace);
+        const newRace = { ...myRace, gapMills: newGapMills };
+        await dispatch(setMyRace(newRace));
+        uploadRaceToNetworkDb(newRace);
         dispatch(setSelectedPage(PagesNameEnum.raceDetails));
     };
 

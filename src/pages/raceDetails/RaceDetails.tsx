@@ -9,6 +9,7 @@ import { HeatDisplayRow } from './components/HeatDisplayRow';
 import { HeatStateEnum } from '../../models/heatState.enum';
 import { db, deleteHeatNameFromSqlite } from '../../utils/db-service';
 import { uploadRaceToNetworkDb } from '../../utils/nework-service';
+import { createNewHeat } from '../../utils/heats';
 import { ScreenContainer } from '../../components/shared/ScreenContainer';
 import { BackButton } from '../../components/shared/BackButton';
 import { ThemedText } from '../../components/shared/ThemedText';
@@ -40,18 +41,10 @@ export const RaceDetails = () => {
     };
 
     const addHeats = async () => {
-        const newHeat: HeatModel = {
-            raceId: myRace.raceId,
-            heatId: myRace.heats.length + 1,
-            startTime: '00:00:00.00',
-            name: 'heat',
-            heatStateNum: HeatStateEnum.ready,
-            creationTime: new Date().getTime(),
-        };
-        const heatsArray: HeatModel[] = [...myRace.heats];
-        heatsArray.push(newHeat);
-        await dispatch(setMyRace({ ...myRace, heats: heatsArray }));
-        uploadRaceToNetworkDb(myRace);
+        const newHeat: HeatModel = createNewHeat(myRace.raceId, myRace.heats);
+        const newRace = { ...myRace, heats: [...myRace.heats, newHeat] };
+        await dispatch(setMyRace(newRace));
+        uploadRaceToNetworkDb(newRace);
         db.runSync(
             `insert into sqliteHeatTable (heatId,raceId,startTime, name,heatStateNum,creationTime) values (?,?,?,?,?,?)`,
             [newHeat.heatId, newHeat.raceId, newHeat.startTime, newHeat.name, newHeat.heatStateNum, newHeat.creationTime]
@@ -79,9 +72,10 @@ export const RaceDetails = () => {
                 newHeatList.push(heat);
             }
         });
-        dispatch(setMyRace({ ...myRace, heats: newHeatList }));
+        const newRace = { ...myRace, heats: newHeatList };
+        dispatch(setMyRace(newRace));
         deleteHeatNameFromSqlite(selectedHeats);
-        uploadRaceToNetworkDb(myRace);
+        uploadRaceToNetworkDb(newRace);
         dispatch(setSelectedMode(false));
     };
 

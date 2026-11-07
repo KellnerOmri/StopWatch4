@@ -9,6 +9,7 @@ import { Card } from '../../../components/shared/Card';
 import { ThemedText } from '../../../components/shared/ThemedText';
 import { HeatStateEnum } from '../../../models/heatState.enum';
 import { uploadRaceToNetworkDb } from '../../../utils/nework-service';
+import { createNewHeat } from '../../../utils/heats';
 import { useLanguage } from '../../../i18n/LanguageContext';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
@@ -93,25 +94,17 @@ export const EditHeatNames = () => {
     };
 
     const deleteHeat = async (heatId: number) => {
-        const newHeats = myRace.heats.filter(h => h.heatId !== heatId);
-        await dispatch(setMyRace({ ...myRace, heats: newHeats }));
-        uploadRaceToNetworkDb(myRace);
+        const newRace = { ...myRace, heats: myRace.heats.filter(h => h.heatId !== heatId) };
+        await dispatch(setMyRace(newRace));
+        uploadRaceToNetworkDb(newRace);
         db.runSync(`delete from sqliteHeatTable where heatId = ?`, [heatId]);
     };
 
     const addHeat = async () => {
-        const newHeat: HeatModel = {
-            raceId: myRace.raceId,
-            heatId: myRace.heats.length + 1,
-            startTime: '00:00:00.00',
-            name: 'heat',
-            heatStateNum: HeatStateEnum.ready,
-            creationTime: new Date().getTime(),
-        };
-        const heatsArray: HeatModel[] = [...myRace.heats];
-        heatsArray.push(newHeat);
-        await dispatch(setMyRace({ ...myRace, heats: heatsArray }));
-        uploadRaceToNetworkDb(myRace);
+        const newHeat: HeatModel = createNewHeat(myRace.raceId, myRace.heats);
+        const newRace = { ...myRace, heats: [...myRace.heats, newHeat] };
+        await dispatch(setMyRace(newRace));
+        uploadRaceToNetworkDb(newRace);
         db.runSync(
             `insert into sqliteHeatTable (heatId,raceId,startTime, name,heatStateNum,creationTime) values (?,?,?,?,?,?)`,
             [newHeat.heatId, newHeat.raceId, newHeat.startTime, newHeat.name, newHeat.heatStateNum, newHeat.creationTime]

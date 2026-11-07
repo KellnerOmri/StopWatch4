@@ -8,6 +8,7 @@ import { setClientId, setMyRace, setSelectedPage, setStorageRaceId } from '../..
 import { InsertManualName } from '../components/InsertManualName';
 import { en } from '../../../i18n/dictionaries';
 import { PagesNameEnum } from '../../../models';
+import { uploadedRaces } from '../../../test-utils/uploads';
 
 jest.mock('axios', () => ({
     __esModule: true,
@@ -17,10 +18,6 @@ jest.mock('axios', () => ({
 const CLIENT_ID = 10453;
 const mockedPost = axios.post as jest.Mock;
 
-const readUploadData = (formData: any): string =>
-    typeof formData.get === 'function' ? formData.get('data') : formData._parts.find(([k]: [string]) => k === 'data')[1];
-
-const uploadedRaces = () => mockedPost.mock.calls.map(([, formData]) => JSON.parse(readUploadData(formData)));
 
 const renderScreen = () =>
     render(

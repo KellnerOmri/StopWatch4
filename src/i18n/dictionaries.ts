@@ -17,6 +17,7 @@ export interface Dictionary {
     insertRaceName: string;
     createNewRace: string;
     pleaseEnterRaceName: string;
+    noClientIdTryAgain: string;
 
     // RaceDetails
     synchronized: string;
@@ -76,6 +77,7 @@ export const en: Dictionary = {
     insertRaceName: 'Enter race name',
     createNewRace: 'Create new race',
     pleaseEnterRaceName: 'Please enter a race name',
+    noClientIdTryAgain: 'Could not create the race yet. Check your internet connection and try again.',
 
     synchronized: 'Synchronized',
     start: 'Start',
@@ -129,6 +131,7 @@ export const he: Dictionary = {
     insertRaceName: 'הכנס שם אירוע',
     createNewRace: 'צור אירוע חדש',
     pleaseEnterRaceName: 'נא להכניס שם אירוע',
+    noClientIdTryAgain: 'לא ניתן ליצור אירוע כרגע. בדוק את חיבור האינטרנט ונסה שוב.',
 
     synchronized: 'מסונכרן',
     start: 'התחל',

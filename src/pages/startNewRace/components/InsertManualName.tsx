@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, ToastAndroid, Alert, StyleSheet } from 'react-native';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { createSqliteTables, db, dropSqliteTables, setRaceIdIntoLocalStorage } from '../../../utils/db-service';
-import { createRaceId } from '../../../utils/general';
+import { useAppDispatch } from '../../../app/hooks';
+import { createSqliteTables, db, dropSqliteTables } from '../../../utils/db-service';
+import { createRaceId, MissingClientIdError } from '../../../utils/general';
 import { SqliteRaceModel } from '../../../models/Sqlite.models';
 import { uploadRaceToNetworkDb } from '../../../utils/nework-service';
 import { PagesNameEnum, RaceModel } from '../../../models';
@@ -12,49 +12,67 @@ import { useLanguage } from '../../../i18n/LanguageContext';
 import { ThemedText } from '../../../components/shared/ThemedText';
 
 export const InsertManualName = () => {
-    const { clientId, storageRaceId } = useAppSelector(state => state.global);
     const dispatch = useAppDispatch();
     const { theme } = useTheme();
     const { t } = useLanguage();
     const [manualName, setManualName] = useState('');
+    const isCreatingRef = useRef(false);
 
     const createNewRace = async () => {
-        if (manualName === '') {
+        if (isCreatingRef.current) return;
+        const showMessage = (message: string) => {
             if (Platform.OS === 'android') {
-                ToastAndroid.show(t.pleaseEnterRaceName, ToastAndroid.SHORT);
+                ToastAndroid.show(message, ToastAndroid.SHORT);
             } else {
-                Alert.alert(t.pleaseEnterRaceName);
+                Alert.alert(message);
             }
+        };
+        if (manualName === '') {
+            showMessage(t.pleaseEnterRaceName);
             return;
         }
 
-        const raceName = manualName;
-        await setRaceIdIntoLocalStorage(storageRaceId + 1);
-        const raceId = createRaceId(clientId, storageRaceId);
-        await dropSqliteTables();
-        await createSqliteTables();
-        const newSqliteRaceModel: SqliteRaceModel = {
-            raceId: raceId,
-            name: raceName,
-            gapMills: 0,
-            clientId: clientId,
-            creationTime: new Date().getTime(),
-        };
-        db.runSync(
-            `insert into sqliteRaceTable (raceId,gapMills, name,clientId,creationTime) values (?,?, ?,?,?)`,
-            [newSqliteRaceModel.raceId, newSqliteRaceModel.gapMills, newSqliteRaceModel.name, newSqliteRaceModel.clientId, newSqliteRaceModel.creationTime]
-        );
-        const newRace: RaceModel = {
-            raceId: raceId,
-            clientId: clientId,
-            creationTime: new Date().getTime(),
-            name: raceName,
-            gapMills: 0.0,
-            heats: [],
-        };
-        await dispatch(setMyRace(newRace));
-        uploadRaceToNetworkDb(newRace);
-        dispatch(setSelectedPage(PagesNameEnum.raceDetails));
+        isCreatingRef.current = true;
+        try {
+            const raceName = manualName;
+            let raceId: number;
+            let clientId: number;
+            try {
+                ({ raceId, clientId } = await createRaceId());
+            } catch (e) {
+                if (e instanceof MissingClientIdError) {
+                    showMessage(t.noClientIdTryAgain);
+                    return;
+                }
+                throw e;
+            }
+            await dropSqliteTables();
+            await createSqliteTables();
+            const newSqliteRaceModel: SqliteRaceModel = {
+                raceId: raceId,
+                name: raceName,
+                gapMills: 0,
+                clientId: clientId,
+                creationTime: new Date().getTime(),
+            };
+            db.runSync(
+                `insert into sqliteRaceTable (raceId,gapMills, name,clientId,creationTime) values (?,?, ?,?,?)`,
+                [newSqliteRaceModel.raceId, newSqliteRaceModel.gapMills, newSqliteRaceModel.name, newSqliteRaceModel.clientId, newSqliteRaceModel.creationTime]
+            );
+            const newRace: RaceModel = {
+                raceId: raceId,
+                clientId: clientId,
+                creationTime: new Date().getTime(),
+                name: raceName,
+                gapMills: 0.0,
+                heats: [],
+            };
+            await dispatch(setMyRace(newRace));
+            uploadRaceToNetworkDb(newRace);
+            dispatch(setSelectedPage(PagesNameEnum.raceDetails));
+        } finally {
+            isCreatingRef.current = false;
+        }
     };
 
     return (
